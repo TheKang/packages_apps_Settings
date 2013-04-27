@@ -42,4 +42,10 @@
     <string name="network_traffic_autohide_summary">Hide the traffic monitor when there is no activity</string>
     <string name="network_traffic_autohide_threshold">Inactivity threshold</string>
 
+    <!-- Nfc settings -->
+    <string name="nfc_polling_mode_title">NFC polling mode</string>
+    <string name="nfc_polling_mode_screen_off">Screen off</string>
+    <string name="nfc_polling_mode_screen_locked">Screen on, locked</string>
+    <string name="nfc_polling_mode_screen_unlocked">Screen on, unlocked (default)</string>
+
 </resources>
