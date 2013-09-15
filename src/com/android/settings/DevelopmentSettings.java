@@ -70,6 +70,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.settings.util.Helpers;
+
 import dalvik.system.VMRuntime;
 
 import java.io.File;
@@ -161,6 +163,8 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
     private static final String KEY_CHAMBER_OF_UNLOCKED_SECRETS =
             "chamber_of_unlocked_secrets";
 
+    private static final String RESTART_SYSTEMUI = "restart_systemui";
+
     private static final int RESULT_DEBUG_APP = 1000;
 
     // Dialog identifiers used in showDialog
@@ -226,6 +230,8 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
 
     private Preference mChamber;
     private CheckBoxPreference mChamberUnlocked;
+
+    private Preference mRestartSystemUI;
 
     private final ArrayList<Preference> mAllPrefs = new ArrayList<Preference>();
     private final ArrayList<CheckBoxPreference> mResetCbPrefs
@@ -371,6 +377,8 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
                 getActivity().getContentResolver(),
                 Settings.Secure.CHAMBER_OF_SECRETS, 0) == 1;
         mChamberUnlocked.setChecked(chamberOpened);
+
+        mRestartSystemUI = findPreference(RESTART_SYSTEMUI);
 
         if (chamberOpened) {
             removePreference(mChamber);
@@ -1388,6 +1396,9 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
                 addPreference(mChamberUnlocked);
                 mChamberUnlocked.setChecked(true);
             }
+        } else if (preference == mRestartSystemUI) {
+            Helpers.restartSystemUI(); 
+
         } else {
             return super.onPreferenceTreeClick(preferenceScreen, preference);
         }
