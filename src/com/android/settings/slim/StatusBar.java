@@ -16,7 +16,10 @@
 
 package com.android.settings.slim;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,11 +32,16 @@ import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
 import com.android.internal.util.slim.DeviceUtils;
+
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class StatusBar extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
@@ -45,6 +53,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_NETWORK_STATS = "status_bar_network_stats";
     private static final String STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL = "status_bar_network_stats_update_interval";
     private static final String STATUS_BAR_NETWORK_STATS_HIDE = "status_bar_network_stats_hide";
+    private static final String STATUS_BAR_NETWORK_STATS_COLOR = "status_bar_network_stats_color";
 
     private PreferenceScreen mClockStyle;
     private CheckBoxPreference mStatusBarBrightnessControl;
@@ -52,6 +61,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mStatusBarNetStats;
     private ListPreference mStatusBarNetStatsUpdate;
     private CheckBoxPreference mStatusBarNetStatsHide;
+    private ColorPickerPreference mStatusBarNetStatsColor;
+
+    private static final int MENU_RESET = Menu.FIRST;
+
+    static final int DEFAULT_NETWORK_STATS_COLOR = 0xffffffff;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,6 +112,16 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarNetStatsHide.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_NETWORK_STATS_HIDE, 1) == 1));
 
+        // custom colors
+        mStatusBarNetStatsColor = (ColorPickerPreference) prefSet.findPreference(STATUS_BAR_NETWORK_STATS_COLOR);
+        mStatusBarNetStatsColor.setOnPreferenceChangeListener(this);
+        int intColor = Settings.System.getInt(getContentResolver(),
+                   Settings.System.STATUS_BAR_NETWORK_STATS_COLOR, 0xff000000);
+        String hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mStatusBarNetStatsColor.setSummary(hexColor);
+        mStatusBarNetStatsColor.setNewPreviewColor(intColor);
+
+        setHasOptionsMenu(true);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -117,6 +141,14 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             Settings.System.putLong(getContentResolver(),
                     Settings.System.STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL, updateInterval);
             mStatusBarNetStatsUpdate.setSummary(mStatusBarNetStatsUpdate.getEntries()[index]);
+            return true;
+        } else if (preference == mStatusBarNetStatsColor) {
+            String hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_NETWORK_STATS_COLOR, intHex);
             return true;
         }
         return false;
@@ -189,4 +221,43 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         }
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.add(0, MENU_RESET, 0, R.string.status_bar_network_usage_color_reset)
+                .setIcon(R.drawable.ic_settings_backup) // use the backup icon
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MENU_RESET:
+                resetToDefault();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private void resetToDefault() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setTitle(R.string.status_bar_network_usage_color_reset);
+        alertDialog.setMessage(R.string.status_bar_network_usage_color_reset_message);
+        alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                NetworkStatsColorReset();
+            }
+        });
+        alertDialog.setNegativeButton(R.string.cancel, null);
+        alertDialog.create().show();
+    }
+
+    private void NetworkStatsColorReset() {
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.STATUS_BAR_NETWORK_STATS_COLOR, DEFAULT_NETWORK_STATS_COLOR);
+
+        mStatusBarNetStatsColor.setNewPreviewColor(DEFAULT_NETWORK_STATS_COLOR);
+        String hexColor = String.format("#%08x", (0xffffffff & DEFAULT_NETWORK_STATS_COLOR));
+        mStatusBarNetStatsColor.setSummary(hexColor);
+    }
 }
