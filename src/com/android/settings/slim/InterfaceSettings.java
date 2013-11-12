@@ -47,6 +47,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.internal.util.slim.DensityUtils;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
@@ -67,13 +68,13 @@ public class InterfaceSettings extends SettingsPreferenceFragment {
 
     private static final int DIALOG_CUSTOM_DENSITY = 101;
 
-    private static final String DENSITY_PROP = "persist.sys.lcd_density";
+    private static final String DENSITY_PROP = DensityUtils.DENSITY_PERSIST_PROP;
 
     private static Preference mLcdDensity;
 
     private static int mMaxDensity = DisplayMetrics.getDeviceDensity();
-    private static int mDefaultDensity = getSlimDefaultDensity();
-    private static int mMinDensity = getMinimumDensity();
+    private static int mDefaultDensity = DensityUtils.getSlimDefaultDensity();
+    private static int mMinDensity = DensityUtils.getMinimumDensity();
 
     private static Activity mActivity;
 
@@ -91,8 +92,7 @@ public class InterfaceSettings extends SettingsPreferenceFragment {
         addPreferencesFromResource(R.xml.slim_interface_settings);
 
         mLcdDensity = (Preference) findPreference(KEY_LCD_DENSITY);
-        String current = SystemProperties.get(DENSITY_PROP,
-                SystemProperties.get("ro.sf.lcd_density"));
+        String current = Integer.toString(DensityUtils.getCurrentDensity());
         mLcdDensity.setSummary(getResources().getString(R.string.current_density) + current);
         mLcdDensity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
@@ -103,17 +103,6 @@ public class InterfaceSettings extends SettingsPreferenceFragment {
         });
     }
 
-    private static int getMinimumDensity() {
-        int min = -1;
-        int[] densities = { 91, 121, 161, 241, 321, 481 };
-        for (int density : densities) {
-            if (density < mMaxDensity) {
-                min = density;
-            }
-        }
-        return min;
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -121,7 +110,7 @@ public class InterfaceSettings extends SettingsPreferenceFragment {
 
     private static void setDensity(int density) {
         SystemProperties.set(DENSITY_PROP, Integer.toString(density));
-        DisplayMetrics.setCurrentDensity(density);
+        DensityUtils.setCurrentDensity(density);
         final IWindowManager windowManagerService = IWindowManager.Stub.asInterface(
                 ServiceManager.getService(Context.WINDOW_SERVICE));
         try {
@@ -144,6 +133,12 @@ public class InterfaceSettings extends SettingsPreferenceFragment {
     private static void killRunningApps() {
         ActivityManager am = (ActivityManager) mActivity.getSystemService(
                 Context.ACTIVITY_SERVICE);
+        String defaultKeyboard = Settings.Secure.getStringForUser(mActivity.getContentResolver(),
+                Settings.Secure.DEFAULT_INPUT_METHOD, UserHandle.USER_CURRENT);
+        if (defaultKeyboard.contains("/")) {
+            defaultKeyboard = defaultKeyboard.split("/")[0];
+        }
+        am.forceStopPackage(defaultKeyboard);
         for (ActivityManager.RunningAppProcessInfo pid : am.getRunningAppProcesses()) {
             am.killBackgroundProcesses(pid.processName);
         }
@@ -185,8 +180,7 @@ public class InterfaceSettings extends SettingsPreferenceFragment {
                             dialogView.findViewById(R.id.current_dpi);
                     final TextView newDPI = (TextView) dialogView.findViewById(R.id.new_dpi);
                     final SeekBar dpi = (SeekBar) dialogView.findViewById(R.id.dpi_edit);
-                    String current = SystemProperties.get(DENSITY_PROP,
-                            SystemProperties.get("ro.sf.lcd_density"));
+                    String current = Integer.toString(DensityUtils.getCurrentDensity());
                     setTextDPI(newDPI, current);
                     currentDPI.setText(getResources().getString(
                             R.string.current_density) + current);
@@ -243,24 +237,5 @@ public class InterfaceSettings extends SettingsPreferenceFragment {
         @Override
         public void onCancel(DialogInterface dialog) {
         }
-    }
-
-    public static int getSlimDefaultDensity() {
-        Properties prop = new Properties();
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream("/system/build.prop");
-            prop.load(fis);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fis != null) {
-                    fis.close();
-                }
-            } catch (Exception e) {
-            }
-        }
-        return Integer.parseInt(prop.getProperty(DENSITY_PROP, "-1"));
     }
 }
