@@ -165,6 +165,8 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
 
     private static final String RESTART_SYSTEMUI = "restart_systemui";
 
+    private static final String DEVELOPMENT_SHORTCUT_KEY = "development_shortcut";
+
     private static final int RESULT_DEBUG_APP = 1000;
 
     // Dialog identifiers used in showDialog
@@ -233,6 +235,8 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
 
     private Preference mRestartSystemUI;
 
+    private CheckBoxPreference mDevelopmentShortcut;
+
     private final ArrayList<Preference> mAllPrefs = new ArrayList<Preference>();
     private final ArrayList<CheckBoxPreference> mResetCbPrefs
             = new ArrayList<CheckBoxPreference>();
@@ -297,12 +301,14 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
         mAllowMockLocation = findAndInitCheckboxPref(ALLOW_MOCK_LOCATION);
         mPassword = (PreferenceScreen) findPreference(LOCAL_BACKUP_PASSWORD);
         mAllPrefs.add(mPassword);
+        mDevelopmentShortcut = findAndInitCheckboxPref(DEVELOPMENT_SHORTCUT_KEY);
 
         if (!android.os.Process.myUserHandle().equals(UserHandle.OWNER)) {
             disableForUser(mEnableAdb);
             disableForUser(mClearAdbKeys);
             disableForUser(mEnableTerminal);
             disableForUser(mPassword);
+            disableForUser(mDevelopmentShortcut);
         }
 
         mDebugAppPref = findPreference(DEBUG_APP_KEY);
@@ -585,6 +591,23 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
         updateForceRtlOptions();
         updateWifiDisplayCertificationOptions();
         updateRootAccessOptions();
+        updateDevelopmentShortcutOptions();
+    }
+
+    private void resetDevelopmentShortcutOptions() {
+        Settings.Secure.putInt(getActivity().getContentResolver(),
+                Settings.Secure.DEVELOPMENT_SHORTCUT, 0);
+    }
+
+    private void writeDevelopmentShortcutOptions() {
+        Settings.Secure.putInt(getActivity().getContentResolver(),
+                Settings.Secure.DEVELOPMENT_SHORTCUT,
+                mDevelopmentShortcut.isChecked() ? 1 : 0);
+    }
+
+    private void updateDevelopmentShortcutOptions() {
+        mDevelopmentShortcut.setChecked(Settings.Secure.getInt(getActivity().getContentResolver(),
+                Settings.Secure.DEVELOPMENT_SHORTCUT, 0) != 0);
     }
 
     private void resetDangerousOptions() {
@@ -597,6 +620,7 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             }
         }
         resetDebuggerOptions();
+        resetDevelopmentShortcutOptions();
         writeAnimationScaleOption(0, mWindowAnimationScale, null);
         writeAnimationScaleOption(1, mTransitionAnimationScale, null);
         writeAnimationScaleOption(2, mAnimatorDurationScale, null);
@@ -1384,6 +1408,8 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             writeForceRtlOptions();
         } else if (preference == mWifiDisplayCertification) {
             writeWifiDisplayCertificationOptions();
+        } else if (preference == mDevelopmentShortcut) {
+            writeDevelopmentShortcutOptions();
         } else if (preference == mChamber) {
             if (Settings.Secure.getInt(getActivity().getContentResolver(),
                     Settings.Secure.CHAMBER_OF_SECRETS, 0) == 0) {
@@ -1398,7 +1424,6 @@ public class DevelopmentSettings extends RestrictedSettingsFragment
             }
         } else if (preference == mRestartSystemUI) {
             Helpers.restartSystemUI(); 
-
         } else {
             return super.onPreferenceTreeClick(preferenceScreen, preference);
         }
