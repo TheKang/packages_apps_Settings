@@ -36,6 +36,7 @@ import com.android.internal.util.slim.DeviceUtils;
 
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.slim.quicksettings.QuickSettingsUtil;
+import com.android.settings.util.Helpers;
 import com.android.settings.R;
 import com.android.settings.widget.SeekBarPreference;
 
@@ -182,14 +183,14 @@ public class NotificationDrawerQsSettings extends SettingsPreferenceFragment
         mCollapsePanel.setOnPreferenceChangeListener(this);
 
         mQSQuickAccess = (CheckBoxPreference) findPreference(QS_QUICK_ACCESS);
-        mQSQuickAccess.setChecked((Settings.System.getInt(resolver,
-                Settings.System.QS_QUICK_ACCESS, 0) == 1));
+        mQSQuickAccess.setChecked(Settings.System.getIntForUser(getContentResolver(),
+                Settings.System.QS_QUICK_ACCESS, 0, UserHandle.USER_CURRENT) == 1);
 
         mQSQuickAccess_linked = (CheckBoxPreference) findPreference(QS_QUICK_ACCESS_LINKED);
-        //mQSQuickAccess_linked.setChecked((Settings.System.getInt(resolver,
-        //        Settings.System.QS_QUICK_ACCESS_LINKED, 0) == 1));
-        mQSQuickAccess_linked.setChecked(1);
-        mQSQuickAccess_linked.setEnabled(0);
+        //mQSQuickAccess_linked.setChecked(Settings.System.getIntForUser(resolver,
+        //        Settings.System.QS_QUICK_ACCESS_LINKED, 0, UserHandle.USER_CURRENT) == 1);
+        mQSQuickAccess_linked.setChecked(1 == 1);
+        mQSQuickAccess_linked.setEnabled(0 == 1);
 
         updateQuickSettingsOptions();
     }
@@ -274,13 +275,18 @@ public class NotificationDrawerQsSettings extends SettingsPreferenceFragment
                     Settings.System.REMINDER_ALERT_RINGER,
                     val.toString(), UserHandle.USER_CURRENT);
             return true;
-
         } else if (preference == mQSQuickAccess) {
-            Settings.System.putInt(resolver,
-                    Settings.System.QS_QUICK_ACCESS, newValue ? 1 : 0);
+            Settings.System.putIntForUser(getContentResolver(),
+                    Settings.System.QS_QUICK_ACCESS,
+                    (Boolean) newValue ? 1 : 0, UserHandle.USER_CURRENT);
+            Helpers.restartSystemUI();
+            return true;
         } else if (preference == mQSQuickAccess_linked) {
-            Settings.System.putInt(resolver,
-                    Settings.System.QS_QUICK_ACCESS_LINKED, newValue ? 1 : 0);
+            Settings.System.putIntForUser(getContentResolver(),
+                    Settings.System.QS_QUICK_ACCESS_LINKED,
+                    (Boolean) newValue ? 1 : 0, UserHandle.USER_CURRENT);
+            return true;
+
         }
         return false;
     }
