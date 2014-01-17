@@ -59,4 +59,7 @@
     <string name="display_density">Display density</string>
     <string name="display_density_summary">Overrides the default display density (0 to disable, requires a reboot)</string>
 
+    <!-- SuperSU header name - the app hides itself from launcher based on this resource name being present in com.android.settings -->
+    <string name="supersu_title">SuperSU</string>
+
 </resources>
