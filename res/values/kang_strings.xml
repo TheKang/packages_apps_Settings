@@ -221,8 +221,11 @@
     <string name="battery_arc_lockscreen_handle">Battery arc handle</string>
     <string name="battery_arc_lockscreen_handle_summary">An arc around the lockscreen handle representing battery level</string>
 
-    <!--  development shortcut -->
+    <!-- Development shortcut -->
     <string name="development_shortcut_title">Development shortcut</string>
     <string name="development_shortcut_summary">Enable \'wipe data\' and \'force close\' options in notification area and recent apps list</string>
+
+    <!-- SuperSU header name - the app hides itself from launcher based on this resource name being present in com.android.settings -->
+    <string name="supersu_title">SuperSU</string>
 
 </resources>
