@@ -70,6 +70,7 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <permission
         android:name="android.permission.REQUEST_SUPERUSER"
@@ -1956,7 +1957,13 @@
             </intent-filter>
         </receiver>
 
-       <activity android:name=".slim.fragments.BatteryBar" />
+        <activity android:name=".slim.fragments.BatteryBar" />
+
+        <receiver android:name=".slim.performance.BootReceiver" android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

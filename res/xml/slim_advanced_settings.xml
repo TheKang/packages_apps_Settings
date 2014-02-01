@@ -24,6 +24,24 @@
         android:fragment="com.koushikdutta.superuser.PolicyNativeFragment" />
 
     <PreferenceCategory
+        android:title="@string/performance_settings_title" />
+
+    <PreferenceScreen
+        android:key="processor_settings"
+        android:title="@string/processor_title"
+        android:fragment="com.android.settings.slim.performance.Processor" />
+
+    <PreferenceScreen
+        android:key="performance_extras"
+        android:title="@string/performance_extras_title"
+        android:fragment="com.android.settings.slim.performance.Extras" />
+
+    <PreferenceScreen
+        android:key="performance_advanced"
+        android:title="@string/performance_advanced_title"
+        android:fragment="com.android.settings.slim.performance.Advanced" />
+
+    <PreferenceCategory
         android:key="advanced_settings_options_prefs"
         android:title="@string/advanced_options_settings_title">
 

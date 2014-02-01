@@ -1173,4 +1173,94 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="battery_bar_style_entries_regular">Regular</string>
     <string name="battery_bar_style_entries_center">Center-mirrored</string>
 
+    <!-- Performance settings  -->
+    <string name="performance_settings_title">Performance</string>
+    <string name="gamma_control">Gamma Control</string>
+    <string name="voltage_control">Voltage Control</string>
+    <string name="performance_extras_title">Extras</string>
+    <string name="performance_advanced_title">Advanced</string>
+    <string name="set_on_boot_title">Set on boot</string>
+    <string name="value">Value: </string>
+
+    <!-- CPU -->
+    <string name="processor_title">Processor</string>
+    <string name="cpu_speed_title">CPU Speed</string>
+    <string name="current_max">Maximum speed: </string>
+    <string name="current_min">Minimum speed: </string>
+    <string name="governor">Governor</string>
+    <string name="governor_control">Governor Control</string>
+    <string name="not_supported">Your kernel does not support governor control</string>
+    <string name="io_scheduler">IO Scheduler</string>
+    <string name="io_control">IO Control</string>
+    <string name="other_settings_header">Other</string>
+
+    <!-- Gamma -->
+    <string name="red_title">Red</string>
+    <string name="green_title">Green</string>
+    <string name="blue_title">Blue</string>
+
+    <!-- Voltage control -->
+    <string name="volt_info">ATTENTION!\nBefore activating Set on boot, make sure that the values ​​entered do not exceed limits or risk the phone to freeze.</string>
+    <string name="ps_volt_mhz_voltage">" Hz"</string>
+    <string name="ps_volt_save">"Save"</string>
+    <string name="ps_volt_current_voltage">"Current voltage: "</string>
+    <string name="ps_volt_setting_to_apply">"Setting to apply: "</string>
+    <string name="pt_volt_control">Voltage control</string>
+    <string name="ps_volt_control">Set voltages for each frequency</string>
+    <string name="apply_values">Apply values</string>
+    <string name="freq">Frequency</string>
+    <string name="current">mV current</string>
+    <string name="saved">mV saved</string>
+    <string name="not_supported">Your kernel does not support voltage control</string>
+
+    <string name="plus25">Increase by 25 mV</string>
+    <string name="minus25">Decrease by 25 mV</string>
+
+    <string name="uv_title"> uV</string>
+    <string name="uv_enabled_title">Enabled</string>
+    <string name="uv_enabled_summary">Please use it at your own risk</string>
+    <string name="uv_boost_title">Boost voltages</string>
+    <string name="uv_boost_summary">Enable boost voltages by 25000uV</string>
+    <string name="uv_lower_uv_title">Lower uV</string>
+    <string name="uv_higher_uv_title">Higher uV</string>
+    <string name="uv_higher_khz_thres_title">Higher freq threshold</string>
+    <string name="uv_higher_khz_thres_summary">Threshold for higher freqs</string>
+    <string name="uv_apply_title">Apply</string>
+    <string name="uv_apply_summary">Apply undervolting</string>
+    <string name="uv_cpu_table_title">Show CPU table</string>
+    <string name="uv_cpu_table_summary">Select to show CPU table info</string>
+    <string name="uv_reset_title">Reset</string>
+    <string name="uv_reset_summary">Reset undervolting values to default</string>
+    <string name="uv_apply_boot_title">Apply on Boot</string>
+    <string name="uv_apply_boot_summary">Select to re-apply after boot</string>
+
+    <!-- Extras -->
+    <string name="vibration_intensity_title">Vibration Intensity</string>
+
+    <!-- Memory Management -->
+    <string name="memory_management_title">Memory management</string>
+    <string name="memory_management_summary">Customize the usage of memory to alter system performance</string>
+
+    <!-- zRam -->
+    <string name="pref_zram_title">zRam</string>
+    <string name="pref_zram_summary">Compress memory for increased virtual capacity (requires reboot)</string>
+
+    <!-- KSM -->
+    <string name="pref_ksm_title">Kernel samepage merging</string>
+    <string name="pref_ksm_summary">KSM reduces physical memory requirements and improves performance</string>
+
+    <!-- Purgeable Assets -->
+    <string name="pref_purgeable_assets_title">Allow purging of assets</string>
+    <string name="pref_purgeable_assets_summary">Purging of bitmap memory assets allows the freeing of more RAM when needed (requires reboot)</string>
+
+    <!-- Performance Settings : Dithering -->
+    <string name="pref_use_dithering_title">Surface improvement</string>
+    <string name="dithering_no_dither">Disable dithering</string>
+    <string name="dithering_color_banding">Fix color banding (default)</string>
+    <string name="dithering_blur_effect">Fix color banding and blur effect</string>
+
+    <!-- Performance Settings : 16bpp Alpha -->
+    <string name="pref_use_16bpp_alpha_title">16bit transparency</string>
+    <string name="pref_use_16bpp_alpha_summary">Better graphics performance, but lower quality and may cause visual artifacts (requires reboot)</string>
+
 </resources>

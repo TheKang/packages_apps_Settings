@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/ListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/BottomBar"
+        android:cacheColorHint="#00000000" />
+
+    <TextView
+        android:id="@+id/emptyList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/not_supported"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/BottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/set_on_boot_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@string/set_on_boot_title"
+            android:textSize="14sp"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"
+            android:paddingBottom="4dip"
+            android:paddingLeft="4dip"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1" />
+
+        <Switch
+            android:id="@+id/governor_control_sob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentTop="false"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2014 Slimroms
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/voltage_control"
+    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
+
+    <CheckBoxPreference
+        android:key="uv_enabled"
+        android:title="@string/uv_enabled_title"
+        android:summary="@string/uv_enabled_summary" />
+
+    <CheckBoxPreference
+        android:key="uv_boost"
+        android:title="@string/uv_boost_title"
+        android:summary="@string/uv_boost_summary"
+        android:dependency="uv_enabled" />
+
+    <com.android.settings.widget.SeekBarPreference
+        android:key="uv_lower_uv"
+        android:title="@string/uv_lower_uv_title"
+        android:dialogMessage="Voltage (in uV)"
+        android:defaultValue="0"
+        android:text="@string/uv_title" />
+
+    <com.android.settings.widget.SeekBarPreference
+        android:key="uv_higher_uv"
+        android:title="@string/uv_higher_uv_title"
+        android:dialogMessage="Voltage (in uV)"
+        android:defaultValue="0"
+        android:text="@string/uv_title" />
+
+    <EditTextPreference
+        android:key="uv_higher_khz_thres"
+        android:title="@string/uv_higher_khz_thres_title"
+        android:summary="@string/uv_higher_khz_thres_summary"
+        android:numeric="integer"
+        android:inputType="number" 
+        android:dependency="uv_enabled"/>
+
+    <Preference 
+        android:key="uv_apply"
+        android:title="@string/uv_apply_title"
+        android:summary="@string/uv_apply_summary"
+        android:dependency="uv_enabled"/>
+
+    <Preference 
+        android:key="uv_cpu_table"
+        android:title="@string/uv_cpu_table_title"
+        android:summary="@string/uv_cpu_table_summary"
+        android:dependency="uv_enabled"/>
+
+    <Preference 
+        android:key="uv_reset"
+        android:title="@string/uv_reset_title"
+        android:summary="@string/uv_reset_summary"
+        android:dependency="uv_enabled"/>
+
+    <CheckBoxPreference
+        android:key="uv_apply_boot"
+        android:title="@string/uv_apply_boot_title"
+        android:summary="@string/uv_apply_boot_summary"
+        android:dependency="uv_enabled" />
+
+</PreferenceScreen>
