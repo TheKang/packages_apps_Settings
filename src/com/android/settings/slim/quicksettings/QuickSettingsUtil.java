@@ -55,6 +55,7 @@ import static com.android.internal.util.slim.QSConstants.TILE_VOLUME;
 import static com.android.internal.util.slim.QSConstants.TILE_WIFI;
 import static com.android.internal.util.slim.QSConstants.TILE_WIFIAP;
 import static com.android.internal.util.slim.QSConstants.TILE_REBOOT;
+import static com.android.internal.util.slim.QSConstants.TILE_FCHARGE;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -170,6 +171,9 @@ public class QuickSettingsUtil {
         registerTile(new QuickSettingsUtil.TileInfo(
                 TILE_CONTACT, R.string.title_tile_contact,
                 "com.android.systemui:drawable/ic_qs_default_user"));
+        registerTile(new QuickSettingsUtil.TileInfo(
+                TILE_FCHARGE, R.string.title_tile_fcharge,
+                "com.android.systemui:drawable/ic_qs_fcharge_on"));
     }
 
     private static void registerTile(QuickSettingsUtil.TileInfo info) {
@@ -221,6 +225,12 @@ public class QuickSettingsUtil {
         if (!DeviceUtils.deviceSupportsTorch(context)) {
             removeTile(TILE_TORCH);
         }
+
+        // Don't show the Fast Charge tile if not supported
+        if (!DeviceUtils.deviceSupportsFastCharge(context)) {
+            removeTile(TILE_FCHARGE);
+        }
+
 
     }
 
