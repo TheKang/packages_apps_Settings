@@ -431,4 +431,8 @@ selecting the profile in the future.</string>
     <string name="heads_up_fullscreen_timeout">Heads up timeout on fullscreen</string>
     <string name="heads_up_floating_window">Launch in floating window</string>
 
+    <!-- HFM Adblocker -->
+    <string name="misc_tweaks_hfm">Hosts File Manager</string>
+    <string name="hfm_disable_ads_title">Disable Ads</string>
+    <string name="hfm_disable_ads_summary">Change hosts file to disable ads</string>
 </resources>
