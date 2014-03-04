@@ -65,4 +65,9 @@
     <!--StatusBar AutoUnhide-->
     <string name="status_bar_auto_unhide_title">Status bar auto unhide</string>
     <string name="status_bar_auto_unhide_summary">Automatically unhide status bar temporarily in fullscreen on new notifications</string>
+
+    <!-- Custom Recent Settings -->
+    <string name="custom_recent_title">Enable Slim Recents</string>
+    <string name="custom_recent_summary">Tick this box to switch between Slim/Stock Recents Screen</string>
+
 </resources>
