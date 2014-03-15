@@ -125,4 +125,9 @@
 
         </PreferenceCategory>
 
+        <CheckBoxPreference
+            android:key="notification_peek"
+            android:title="@string/notification_peek_title"
+            android:summary="@string/notification_peek_summary" />
+
 </PreferenceScreen>
