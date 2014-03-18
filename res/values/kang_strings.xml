@@ -353,6 +353,9 @@ selecting the profile in the future.</string>
     <string name="profile_lockmode_disabled_summary">Lock screen is disabled</string>
     <string name="profile_airplanemode_title">Airplane mode</string>
 
+    <string name="profile_disable_ad_wakeup_title">Disable Active Display</string>
+    <string name="profile_disable_ad_wakeup_summary">Prevent Active Display and Lockscreen Notifications from turning on the screen on incoming notifications or pocket mode</string>
+
     <!-- Connection override toggles (not all are used at this time ) -->
     <string name="toggleWifi">Wi-Fi</string>
     <string name="toggleWifiAp">Portable Wi-Fi hotspot</string>

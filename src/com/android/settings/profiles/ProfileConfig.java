@@ -36,6 +36,7 @@ import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -71,6 +72,8 @@ public class ProfileConfig extends SettingsPreferenceFragment
     private NamePreference mNamePreference;
 
     private ListPreference mScreenLockModePreference;
+
+    private CheckBoxPreference mDisableADPreference;
 
     // constant value that can be used to check return code from sub activity.
     private static final int PROFILE_GROUP_DETAILS = 1;
@@ -273,6 +276,17 @@ public class ProfileConfig extends SettingsPreferenceFragment
             }
 
             systemPrefs.addPreference(mScreenLockModePreference);
+
+            // Disable Active Display preference
+            mDisableADPreference = new CheckBoxPreference(getActivity());
+            mDisableADPreference.setTitle(R.string.profile_disable_ad_wakeup_title);
+            mDisableADPreference.setPersistent(false);
+            mDisableADPreference.setSummary(R.string.profile_disable_ad_wakeup_summary);
+            mDisableADPreference.setChecked(mProfile.getDisableAD() == 1);
+            mDisableADPreference.setOnPreferenceChangeListener(this);
+
+            systemPrefs.addPreference(mDisableADPreference);
+
         }
 
         // Populate the audio streams list
@@ -380,9 +394,12 @@ public class ProfileConfig extends SettingsPreferenceFragment
         Log.d(TAG, "onPreferenceTreeClick(): entered" + preferenceScreen.getKey() + preference.getKey());
         if (preference instanceof PreferenceScreen) {
             startProfileGroupActivity(preference.getKey(), preference.getTitle().toString());
-            return true;
+        } else if (preference == mDisableADPreference) {
+            mProfile.setDisableAD(mDisableADPreference.isChecked() ? 1 : 0 );
+        } else {
+            return super.onPreferenceTreeClick(preferenceScreen, preference);
         }
-        return super.onPreferenceTreeClick(preferenceScreen, preference);
+        return true;
     }
 
     private void startProfileGroupActivity(String key, String title) {
