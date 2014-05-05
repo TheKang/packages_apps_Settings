@@ -55,4 +55,8 @@
     <string name="excluded_apps_title">Excluded applications</string>
     <string name="excluded_apps_summary">Excluded applications will not show up as lockscreen notifications</string>
     <string name="notification_color">Notification background color</string>
+
+    <!--StatusBar AutoUnhide-->
+    <string name="status_bar_auto_unhide_title">Status bar auto unhide</string>
+    <string name="status_bar_auto_unhide_summary">Automatically unhide status bar temporarily in fullscreen on new notifications</string>
 </resources>

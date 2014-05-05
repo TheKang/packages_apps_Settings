@@ -41,9 +41,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private static final String KEY_STATUS_BAR_CLOCK = "clock_style_pref";
     private static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
+    private static final String STATUS_BAR_AUTO_UNHIDE = "status_bar_auto_unhide";
 
     private PreferenceScreen mClockStyle;
     private CheckBoxPreference mStatusBarBrightnessControl;
+    private CheckBoxPreference mStatusBarAutoUnhide;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,12 +71,22 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                             Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0) == 1));
         mStatusBarBrightnessControl.setOnPreferenceChangeListener(this);
 
+        mStatusBarAutoUnhide = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_AUTO_UNHIDE);
+        mStatusBarAutoUnhide.setChecked((Settings.System.getInt(getContentResolver(),
+                            Settings.System.STATUS_BAR_AUTO_UNHIDE, 0) == 1));
+        mStatusBarAutoUnhide.setOnPreferenceChangeListener(this);
+
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mStatusBarBrightnessControl) {
             Settings.System.putInt(getContentResolver(),
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL,
+                    (Boolean) newValue ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarAutoUnhide) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_AUTO_UNHIDE,
                     (Boolean) newValue ? 1 : 0);
             return true;
         }
