@@ -143,7 +143,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         mNotificationPeek = (CheckBoxPreference) findPreference(KEY_PEEK);
         mNotificationPeek.setPersistent(false);
 
-        mPeekPickupTimeout = (ListPreference) prefs.findPreference(KEY_PEEK_PICKUP_TIMEOUT);
+        mPeekPickupTimeout = (ListPreference) findPreference(KEY_PEEK_PICKUP_TIMEOUT);
         int peekTimeout = Settings.System.getIntForUser(getContentResolver(),
                 Settings.System.PEEK_PICKUP_TIMEOUT, 0, UserHandle.USER_CURRENT);
         mPeekPickupTimeout.setValue(String.valueOf(peekTimeout));
@@ -491,13 +491,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             boolean value = mNotificationPeek.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.PEEK_STATE,
                     value ? 1 : 0);
-        } else if (preference == mPeekPickupTimeout) {
-            int peekTimeout = Integer.valueOf((String) value);
-            Settings.System.putInt(getContentResolver(),
-                Settings.System.PEEK_PICKUP_TIMEOUT, peekTimeout);
-            updatePeekTimeoutOptions(value);
-            return true;
-
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -551,6 +544,13 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(),
                     Settings.System.WAKEUP_WHEN_PLUGGED_UNPLUGGED,
                     (Boolean) objValue ? 1 : 0);
+        }
+
+        if (KEY_PEEK_PICKUP_TIMEOUT.equals(key)) {
+            int peekTimeout = Integer.valueOf((String) objValue);
+            Settings.System.putInt(getContentResolver(),
+                Settings.System.PEEK_PICKUP_TIMEOUT, peekTimeout);
+            updatePeekTimeoutOptions(objValue);
         }
 
         return true;
