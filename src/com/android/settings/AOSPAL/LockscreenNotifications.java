@@ -56,11 +56,11 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
     private AppMultiSelectListPreference mExcludedAppsPref;
     private ColorPickerPreference mNotificationColor;
 
-    private Context mContext;
+    //private Context mContext;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getActivity();
+        //mContext = getActivity();
 
         addPreferencesFromResource(R.xml.lockscreen_notifications);
         PreferenceScreen prefs = getPreferenceScreen();
