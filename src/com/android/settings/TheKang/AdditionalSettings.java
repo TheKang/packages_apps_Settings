@@ -37,7 +37,7 @@ import android.view.Gravity;
 
 import com.android.internal.util.slim.DeviceUtils;
 
-import com.android.settings.hfm.HfmHelpers;
+import com.android.settings.TheKang.hfm.HfmHelpers;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
@@ -46,10 +46,6 @@ import com.android.settings.util.Helpers;
 public class AdditionalSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
-    private static final String HFM_DISABLE_ADS = "hfm_disable_ads";
-
-    private CheckBoxPreference mHfmDisableAds;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +53,6 @@ public class AdditionalSettings extends SettingsPreferenceFragment implements
         addPreferencesFromResource(R.xml.additional_settings);
 
         PreferenceScreen prefSet = getPreferenceScreen();
-
-        mHfmDisableAds = (CheckBoxPreference) findPreference(HFM_DISABLE_ADS);
 
         UpdateSettings();
     }
@@ -75,8 +69,6 @@ public class AdditionalSettings extends SettingsPreferenceFragment implements
     }
 
     public void UpdateSettings() {
-        mHfmDisableAds.setChecked((Settings.System.getInt(getActivity().getContentResolver(),
-                Settings.System.HFM_DISABLE_ADS, 0) == 1));
     }
 
     @Override
@@ -92,13 +84,13 @@ public class AdditionalSettings extends SettingsPreferenceFragment implements
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if (preference == mHfmDisableAds) {
-            boolean checked = ((CheckBoxPreference)preference).isChecked();
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.HFM_DISABLE_ADS, checked ? 1:0);
-            HfmHelpers.checkStatus(getActivity());
-            return true;
-        }
+        //if (preference == mHfmDisableAds) {
+        //    boolean checked = ((CheckBoxPreference)preference).isChecked();
+        //    Settings.System.putInt(getActivity().getContentResolver(),
+        //            Settings.System.HFM_DISABLE_ADS, checked ? 1:0);
+        //    HfmHelpers.checkStatus(getActivity());
+        //    return true;
+        //}
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 }
