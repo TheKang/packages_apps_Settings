@@ -59,6 +59,7 @@ import static com.android.internal.util.slim.QSConstants.TILE_REBOOT;
 import static com.android.internal.util.slim.QSConstants.TILE_FCHARGE;
 import static com.android.internal.util.slim.QSConstants.TILE_PROFILE;
 import static com.android.internal.util.slim.QSConstants.TILE_ONTHEGO;
+import static com.android.internal.util.slim.QSConstants.TILE_COMPASS;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -186,6 +187,9 @@ public class QuickSettingsUtil {
         registerTile(new QuickSettingsUtil.TileInfo(
                 TILE_SHAKE, R.string.title_tile_shake,
                 "com.android.systemui:drawable/ic_qs_shake_events"));
+        registerTile(new QuickSettingsUtil.TileInfo(
+                TILE_COMPASS, R.string.title_tile_compass,
+                "com.android.systemui:drawable/ic_qs_compass_on"));
     }
 
     private static void registerTile(QuickSettingsUtil.TileInfo info) {
@@ -246,6 +250,11 @@ public class QuickSettingsUtil {
         // Don't show the On-The-Go tile if the device has no cameras
         if (!DeviceUtils.hasCamera(context)) {
             removeTile(TILE_ONTHEGO);
+        }
+
+        // Don't show the Compass tile if the device has no orientation sensor
+        if (!DeviceUtils.deviceSupportsCompass(context)) {
+            removeTile(TILE_COMPASS);
         }
 
     }
