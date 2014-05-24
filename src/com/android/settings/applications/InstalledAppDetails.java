@@ -131,6 +131,7 @@ public class InstalledAppDetails extends Fragment
     private CheckBox mAskCompatibilityCB;
     private CheckBox mEnableCompatibilityCB;
     private CheckBox mHoverBlacklist;
+    private CheckBox mFloatingBlacklist;
     private boolean mCanClearData = true;
     private TextView mAppVersion;
     private TextView mTotalSize;
@@ -429,8 +430,11 @@ public class InstalledAppDetails extends Fragment
     private void initBlacklistButton() {
         mBlacklistButton.setText(R.string.blacklist_button_title);
 
+        boolean allowedForFloating = true;
         boolean allowedForHover = true;
         try {
+            allowedForFloating = mNotificationManager
+                    .isPackageAllowedForFloatingMode(mAppEntry.info.packageName);
             allowedForHover = mNotificationManager
                     .isPackageAllowedForHover(mAppEntry.info.packageName);
         } catch (android.os.RemoteException ex) {
@@ -438,6 +442,9 @@ public class InstalledAppDetails extends Fragment
         }
         mHoverBlacklist.setChecked(!allowedForHover);
         mHoverBlacklist.setOnCheckedChangeListener(this);
+
+        mFloatingBlacklist.setChecked(!allowedForFloating);
+        mFloatingBlacklist.setOnCheckedChangeListener(this);
 
         mBlacklistButton.setOnClickListener(this);
     }
@@ -534,7 +541,7 @@ public class InstalledAppDetails extends Fragment
         mBlacklistButton = (Button)moreCtrlBtns.findViewById(R.id.left_button);
         mSpecialDisableButton = (Button)moreCtrlBtns.findViewById(R.id.right_button);
         mSpecialDisableButton.setVisibility(View.INVISIBLE);
-        
+
         // Initialize clear data and move install location buttons
         View data_buttons_panel = view.findViewById(R.id.data_buttons_panel);
         mClearDataButton = (Button) data_buttons_panel.findViewById(R.id.right_button);
@@ -557,6 +564,9 @@ public class InstalledAppDetails extends Fragment
         mAppOpsButton = (Button) view.findViewById(R.id.app_ops_button);
         mBlacklistDialogView = inflater.inflate(R.layout.blacklist_dialog, null);
         mHoverBlacklist = (CheckBox) mBlacklistDialogView.findViewById(R.id.hover_blacklist);
+
+        mBlacklistDialogView = inflater.inflate(R.layout.blacklist_dialog, null);
+        mFloatingBlacklist = (CheckBox) mBlacklistDialogView.findViewById(R.id.floating_blacklist);
 
         return view;
     }
@@ -1466,6 +1476,14 @@ public class InstalledAppDetails extends Fragment
         }
     }
 
+    private void setFloatingModeState(boolean state) {
+        try {
+            mNotificationManager.setFloatingModeBlacklistStatus(mAppEntry.info.packageName, state);
+        } catch (android.os.RemoteException ex) {
+            mFloatingBlacklist.setChecked(!state); // revert
+        }
+    }
+
     private int getPremiumSmsPermission(String packageName) {
         try {
             if (mSmsManager != null) {
@@ -1572,7 +1590,8 @@ public class InstalledAppDetails extends Fragment
             }
         } else if (buttonView == mHoverBlacklist) {
             setHoverState(isChecked);
+        } else if (buttonView == mFloatingBlacklist) {
+            setFloatingModeState(isChecked);
         }
     }
 }
-
