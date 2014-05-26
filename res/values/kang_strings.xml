@@ -69,4 +69,9 @@
     <string name="title_quick_access_linked">Linked layout</string>
     <string name="summary_quick_access_linked">Use the same tiles and layout as the Quick Settings panel</string>
 
+    <!-- Network Usage Stats -->
+    <string name="status_bar_network_title">Network traffic</string>
+    <string name="status_bar_show_network_stats_title">Show network speeds</string>
+    <string name="status_bar_network_stats_update_title">Update frequency</string>
+
 </resources>
