@@ -102,4 +102,10 @@
     <string name="disable_fc_notifications_title">Diable FC Notifications</string>
     <string name="disable_fc_notifications_summary">This will hide all force close notificaitons</string>
 
+    <!-- Suppress 'no service' and 'data disabled due to roaming' notifications -->
+    <string name="suppress_datadisconnected_notification_title">Suppress \'data disconnected\' notification</string>
+    <string name="suppress_noservice_notification_title">Suppress \'no service\' notification</string>
+    <string name="suppress_datadisconnected_notification_summary">Don\'t show the \'data disabled due to roaming\' notification, which appears when you lose data connectivity because you\'re roaming and you have the \'data roaming\' feature turned off</string>
+    <string name="suppress_noservice_notification_summary">Don\'t show the network selection \'no service\' notification</string>
+
 </resources>

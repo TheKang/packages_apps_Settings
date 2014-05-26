@@ -93,4 +93,14 @@
             android:targetClass="com.android.cellbroadcastreceiver.CellBroadcastSettings" />
     </PreferenceScreen>
 
+    <com.android.settings.slim.SystemSettingCheckBoxPreference
+        android:key="suppress_datadisconnected_notification"
+        android:title="@string/suppress_datadisconnected_notification_title"
+        android:summary="@string/suppress_datadisconnected_notification_summary" />
+
+    <com.android.settings.slim.SystemSettingCheckBoxPreference
+        android:key="suppress_noservice_notification"
+        android:title="@string/suppress_noservice_notification_title"
+        android:summary="@string/suppress_noservice_notification_summary" />
+
 </PreferenceScreen>
