@@ -44,12 +44,14 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String KEY_STATUS_BAR_TICKER = "status_bar_ticker_enabled";
     private static final String STATUS_BAR_NETWORK_STATS = "status_bar_network_stats";
     private static final String STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL = "status_bar_network_stats_update_interval";
+    private static final String STATUS_BAR_NETWORK_STATS_HIDE = "status_bar_network_stats_hide";
 
     private SwitchPreference mStatusBarBrightnessControl;
     private PreferenceScreen mClockStyle;
     private SwitchPreference mTicker;
     private ListPreference mStatusBarNetStatsUpdate;
     private CheckBoxPreference mStatusBarNetworkStats;
+    private CheckBoxPreference mStatusBarNetworkStatsHide;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,6 +99,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarNetStatsUpdate.setSummary(mStatusBarNetStatsUpdate.getEntry());
         mStatusBarNetStatsUpdate.setOnPreferenceChangeListener(this);
 
+        mStatusBarNetStatsHide = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NETWORK_STATS_HIDE);
+        mStatusBarNetStatsHide.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_NETWORK_STATS_HIDE, 1) == 1));
+
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -127,6 +133,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarNetworkStats.isChecked();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.STATUS_BAR_NETWORK_STATS, value ? 1 : 0);
+        } else if (preference == mStatusBarNetworkStatsHide) {
+            value = mStatusBarNetworkStatsHide.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_NETWORK_STATS_HIDE, value ? 1 : 0);
         }
         return true;
     }
