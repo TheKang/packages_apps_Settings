@@ -42,10 +42,14 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
     private static final String KEY_STATUS_BAR_CLOCK = "clock_style_pref";
     private static final String KEY_STATUS_BAR_TICKER = "status_bar_ticker_enabled";
+    private static final String STATUS_BAR_NETWORK_STATS = "status_bar_network_stats";
+    private static final String STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL = "status_bar_network_stats_update_interval";
 
     private SwitchPreference mStatusBarBrightnessControl;
     private PreferenceScreen mClockStyle;
     private SwitchPreference mTicker;
+    private ListPreference mStatusBarNetStatsUpdate;
+    private CheckBoxPreference mStatusBarNetworkStats;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,18 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mClockStyle = (PreferenceScreen) prefSet.findPreference(KEY_STATUS_BAR_CLOCK);
         updateClockStyleDescription();
 
+        mStatusBarNetworkStats = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NETWORK_STATS);
+        mStatusBarNetworkStats.setChecked((Settings.System.getInt(getContentResolver(),
+                            Settings.System.STATUS_BAR_NETWORK_STATS, 0) == 1));
+
+        long statsUpdate = Settings.System.getInt(getContentResolver(),
+                            Settings.System.STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL, 500);
+
+        mStatusBarNetStatsUpdate = (ListPreference) prefSet.findPreference(STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL);
+        mStatusBarNetStatsUpdate.setValue(String.valueOf(statsUpdate));
+        mStatusBarNetStatsUpdate.setSummary(mStatusBarNetStatsUpdate.getEntry());
+        mStatusBarNetStatsUpdate.setOnPreferenceChangeListener(this);
+
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -94,8 +110,25 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                     Settings.System.STATUS_BAR_TICKER_ENABLED,
                     (Boolean) newValue ? 1 : 0);
             return true;
+        } else if (preference == mStatusBarNetStatsUpdate) {
+            long updateInterval = Long.valueOf((String) newValue);
+            int index = mStatusBarNetStatsUpdate.findIndexOfValue((String) newValue);
+            Settings.System.putLong(getContentResolver(),
+                    Settings.System.STATUS_BAR_NETWORK_STATS_UPDATE_INTERVAL, updateInterval);
+            mStatusBarNetStatsUpdate.setSummary(mStatusBarNetStatsUpdate.getEntries()[index]);
+            return true;
         }
         return false;
+    }
+
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        boolean value;
+        if (preference == mStatusBarNetworkStats) {
+            value = mStatusBarNetworkStats.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_NETWORK_STATS, value ? 1 : 0);
+        }
+        return true;
     }
 
     @Override

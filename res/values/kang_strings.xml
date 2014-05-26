@@ -42,4 +42,9 @@
     <string name="screen_on_notification_led_title">Screen-On Notification Light</string>
     <string name="screen_on_notification_led_summary">Enable Notification Light even when screen is on.</string>
 
+    <!-- Network Usage Stats -->
+    <string name="status_bar_network_title">Network traffic</string>
+    <string name="status_bar_show_network_stats_title">Show network speeds</string>
+    <string name="status_bar_network_stats_update_title">Update frequency</string>
+
 </resources>
