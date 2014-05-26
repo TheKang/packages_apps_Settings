@@ -115,6 +115,10 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
             "recent_panel_scale";
     private static final String RECENT_PANEL_EXPANDED_MODE =
             "recent_panel_expanded_mode";
+    private static final String RECENT_MENU_CLEAR_ALL =
+            "recent_menu_clear_all";
+    private static final String RECENT_MENU_CLEAR_ALL_LOCATION =
+            "recent_menu_clear_all_location";
 
     // Extras passed to sub-fragments.
     static final String EXTRA_PREFERENCE_KEY = "preference_key";
@@ -215,6 +219,8 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mRecentPanelLeftyMode;
     private ListPreference mRecentPanelScale;
     private ListPreference mRecentPanelExpandedMode;
+    private CheckBoxPreference mRecentClearAll;
+    private ListPreference mRecentClearAllPosition;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -278,10 +284,20 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
                     ((Boolean) newValue) ? Gravity.LEFT : Gravity.RIGHT);
             return true;
         } else if (preference == mRecentsCustom) {
-            Settings.System.putBoolean(getActivity().getContentResolver(),
+            Settings.System.putBoolean(getContentResolver(),
                     Settings.System.CUSTOM_RECENT,
                     ((Boolean) newValue) ? true : false);
             Helpers.restartSystemUI();
+            return true;
+        } else if (preference == mRecentClearAll) {
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.SHOW_CLEAR_RECENTS_BUTTON,
+                    ((Boolean) newValue) ? 1 : 0);
+            return true;
+        } else if (preference == mRecentClearAllPosition) {
+            Settings.System.putString(getContentResolver(),
+                    Settings.System.CLEAR_RECENTS_BUTTON_LOCATION,
+                    ((String) newValue));
             return true;
         }
         return false;
@@ -443,6 +459,18 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
         mRecentPanelExpandedMode =
                 (ListPreference) findPreference(RECENT_PANEL_EXPANDED_MODE);
         mRecentPanelExpandedMode.setOnPreferenceChangeListener(this);
+
+        mRecentClearAll = (CheckBoxPreference) findPreference(RECENT_MENU_CLEAR_ALL);
+        mRecentClearAll.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.SHOW_CLEAR_RECENTS_BUTTON, 1) == 1);
+        mRecentClearAll.setOnPreferenceChangeListener(this);
+        mRecentClearAllPosition = (ListPreference) findPreference(RECENT_MENU_CLEAR_ALL_LOCATION);
+        String recentClearAllPosition = Settings.System.getString(getContentResolver(),
+                Settings.System.CLEAR_RECENTS_BUTTON_LOCATION);
+        if (recentClearAllPosition != null) {
+             mRecentClearAllPosition.setValue(recentClearAllPosition);
+        }
+        mRecentClearAllPosition.setOnPreferenceChangeListener(this);
 
     }
 
