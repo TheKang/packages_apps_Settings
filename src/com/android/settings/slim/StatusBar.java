@@ -49,9 +49,9 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private SwitchPreference mStatusBarBrightnessControl;
     private PreferenceScreen mClockStyle;
     private SwitchPreference mTicker;
+    private CheckBoxPreference mStatusBarNetStats;
     private ListPreference mStatusBarNetStatsUpdate;
-    private CheckBoxPreference mStatusBarNetworkStats;
-    private CheckBoxPreference mStatusBarNetworkStatsHide;
+    private CheckBoxPreference mStatusBarNetStatsHide;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,8 +87,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mClockStyle = (PreferenceScreen) prefSet.findPreference(KEY_STATUS_BAR_CLOCK);
         updateClockStyleDescription();
 
-        mStatusBarNetworkStats = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NETWORK_STATS);
-        mStatusBarNetworkStats.setChecked((Settings.System.getInt(getContentResolver(),
+        mStatusBarNetStats = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NETWORK_STATS);
+        mStatusBarNetStats.setChecked((Settings.System.getInt(getContentResolver(),
                             Settings.System.STATUS_BAR_NETWORK_STATS, 0) == 1));
 
         long statsUpdate = Settings.System.getInt(getContentResolver(),
@@ -129,12 +129,12 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         boolean value;
-        if (preference == mStatusBarNetworkStats) {
-            value = mStatusBarNetworkStats.isChecked();
+        if (preference == mStatusBarNetStats) {
+            value = mStatusBarNetStats.isChecked();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.STATUS_BAR_NETWORK_STATS, value ? 1 : 0);
-        } else if (preference == mStatusBarNetworkStatsHide) {
-            value = mStatusBarNetworkStatsHide.isChecked();
+        } else if (preference == mStatusBarNetStatsHide) {
+            value = mStatusBarNetStatsHide.isChecked();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.STATUS_BAR_NETWORK_STATS_HIDE, value ? 1 : 0);
         }
