@@ -120,7 +120,7 @@ limitations under the License.
             android:entryValues="@array/ad_timeout_values"
             android:dependency="ad_enable"/>
 
-        <com.android.settings.widget.SeekBarPreference
+        <SlimSeekBarPreference
             android:key="ad_brightness"
             android:persistent="false"
             android:title="@string/ad_brightness_title"

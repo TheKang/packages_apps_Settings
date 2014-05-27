@@ -24,13 +24,13 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
+import android.preference.SlimSeekBarPreference;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.text.TextUtils;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.AOSPAL.AppMultiSelectListPreference;
-import com.android.settings.widget.SeekBarPreference;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -68,7 +68,7 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
     private AppMultiSelectListPreference mExcludedAppsPref;
     private CheckBoxPreference mShowDatePref;
     private CheckBoxPreference mShowAmPmPref;
-    private SeekBarPreference mBrightnessLevel;
+    private SlimSeekBarPreference mBrightnessLevel;
     private ListPreference mDisplayTimeout;
     private ListPreference mProximityThreshold;
     private CheckBoxPreference mTurnOffModePref;
@@ -133,7 +133,7 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
         mShowAmPmPref.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.ACTIVE_DISPLAY_SHOW_AMPM, 0) == 1));
 
-        mBrightnessLevel = (SeekBarPreference) findPreference(KEY_BRIGHTNESS);
+        mBrightnessLevel = (SlimSeekBarPreference) findPreference(KEY_BRIGHTNESS);
         mBrightnessLevel.setInitValue(Settings.System.getInt(getContentResolver(),
                 Settings.System.ACTIVE_DISPLAY_BRIGHTNESS, 100));
         mBrightnessLevel.setOnPreferenceChangeListener(this);
