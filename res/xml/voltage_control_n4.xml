@@ -30,14 +30,14 @@
         android:summary="@string/uv_boost_summary"
         android:dependency="uv_enabled" />
 
-    <com.android.settings.widget.SeekBarPreference
+    <SlimSeekBarPreference
         android:key="uv_lower_uv"
         android:title="@string/uv_lower_uv_title"
         android:dialogMessage="Voltage (in uV)"
         android:defaultValue="0"
         android:text="@string/uv_title" />
 
-    <com.android.settings.widget.SeekBarPreference
+    <SlimSeekBarPreference
         android:key="uv_higher_uv"
         android:title="@string/uv_higher_uv_title"
         android:dialogMessage="Voltage (in uV)"

@@ -24,7 +24,7 @@
         android:entries="@array/dithering_entries"
         android:entryValues="@array/dithering_values"/>
 
-    <com.android.settings.widget.SeekBarPreference
+    <SlimSeekBarPreference
         android:key="pref_vibration"
         android:title="vibration_intensity_title" />
 

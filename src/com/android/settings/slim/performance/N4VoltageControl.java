@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
+import android.preference.SlimSeekBarPreference;
 import android.util.Log;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.widget.SeekBarPreference;
 
 public class N4VoltageControl extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener, Paths {
@@ -28,8 +28,8 @@ public class N4VoltageControl extends SettingsPreferenceFragment implements
 
     private CheckBoxPreference mUVEnabled;
     private CheckBoxPreference mUVBoost;
-    private SeekBarPreference mUVLowerUV;
-    private SeekBarPreference mUVHigherUV;
+    private SlimSeekBarPreference mUVLowerUV;
+    private SlimSeekBarPreference mUVHigherUV;
     private EditTextPreference mUVHigherKhzThres;
     private Preference mUVApply;
     private Preference mUVCpuTable;
@@ -56,14 +56,14 @@ public class N4VoltageControl extends SettingsPreferenceFragment implements
         int lowerUv = Integer.parseInt(Utils.readOneLine(LOWER_UV_FILE));
         int higherUv = Integer.parseInt(Utils.readOneLine(HIGHER_UV_FILE));
 
-        mUVLowerUV = (SeekBarPreference) findPreference(PREF_UV_LOWER_UV);
+        mUVLowerUV = (SlimSeekBarPreference) findPreference(PREF_UV_LOWER_UV);
         mUVLowerUV.setInterval(12500);
         mUVLowerUV.setDefault(0);
         mUVLowerUV.setMax(150000);
         mUVLowerUV.setInitValue(lowerUv);
         mUVLowerUV.setOnPreferenceChangeListener(this);
 
-        mUVHigherUV = (SeekBarPreference) findPreference(PREF_UV_HIGHER_UV);
+        mUVHigherUV = (SlimSeekBarPreference) findPreference(PREF_UV_HIGHER_UV);
         mUVHigherUV.setInterval(12500);
         mUVHigherUV.setDefault(0);
         mUVHigherUV.setMax(150000);

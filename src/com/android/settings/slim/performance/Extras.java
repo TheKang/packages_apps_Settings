@@ -8,10 +8,10 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.ListPreference;
 import android.preference.PreferenceScreen;
+import android.preference.SlimSeekBarPreference;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.widget.SeekBarPreference;
 
 public class Extras extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener, Paths {
@@ -25,7 +25,7 @@ public class Extras extends SettingsPreferenceFragment implements
 
     private static final String VIBRATION_PREF = "pref_vibration";
 
-    private SeekBarPreference mVibrationPref;
+    private SlimSeekBarPreference mVibrationPref;
 
     private ListPreference mUseDitheringPref;
 
@@ -53,7 +53,7 @@ public class Extras extends SettingsPreferenceFragment implements
         mUse16bppAlphaPref.setChecked("1".equals(use16bppAlpha));
         mUse16bppAlphaPref.setOnPreferenceChangeListener(this);
 
-        mVibrationPref = (SeekBarPreference) pref.findPreference(VIBRATION_PREF);
+        mVibrationPref = (SlimSeekBarPreference) pref.findPreference(VIBRATION_PREF);
         if (Utils.fileExists(VIBRATION_PATH)) {
             String vibe_init = Utils.readOneLine(VIBRATION_PATH);
             mVibrationPref.setInitValue(Integer.parseInt(vibe_init));
