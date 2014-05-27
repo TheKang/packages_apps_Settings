@@ -19,10 +19,6 @@
     android:title="@string/interface_settings_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
-    <Preference
-        android:key="lcd_density"
-        android:title="@string/custom_density_title" />
-
     <PreferenceScreen
         android:fragment="com.android.settings.slim.BatteryIconStyle"
         android:key="battery_style_pref"
@@ -37,5 +33,17 @@
         android:key="status_bar"
         android:fragment="com.android.settings.slim.StatusBar"
         android:title="@string/status_bar_title" />
+
+    <PreferenceScreen
+        android:title="@string/lockscreen_notifications"
+        android:fragment="com.android.settings.AOSPAL.LockscreenNotifications" />
+
+    <PreferenceScreen
+        android:title="@string/active_display_settings"
+        android:fragment="com.android.settings.TheKang.ActiveDisplaySettings" />
+
+    <Preference
+        android:key="lcd_density"
+        android:title="@string/custom_density_title" />
 
 </PreferenceScreen>

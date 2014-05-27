@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.android.settings.kang;
+package com.android.settings.TheKang;
 
 import android.content.Context;
 import android.hardware.SensorManager;
@@ -175,7 +175,7 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
             storeExcludedApps((Set<String>) newValue);
             return true;
         } else if (preference == mBrightnessLevel) {
-            int brightness = ((Integer)newValue).intValue();
+            int brightness = Integer.valueOf((String) newValue);
             Settings.System.putInt(getContentResolver(),
                     Settings.System.ACTIVE_DISPLAY_BRIGHTNESS, brightness);
             return true;
