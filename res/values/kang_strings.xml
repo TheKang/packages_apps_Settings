@@ -383,4 +383,10 @@ selecting the profile in the future.</string>
     <string name="hover_exclude_topmost_title">Exclude topmost app</string>
     <string name="hover_exclude_topmost_summary">Exclude notifications from the app running in foreground</string>
 
+    <!-- Protected Apps -->
+    <string name="menu_hidden_apps_delete">Reset</string>
+    <string name="menu_hidden_apps_reset_lock">Reset pattern lock</string>
+    <string name="protected_apps">Protected apps</string>
+    <string name="saving_protected_components">Saving component state</string>
+
 </resources>
