@@ -73,7 +73,7 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
     private CheckBoxPreference mSunlightModePref;
     private CheckBoxPreference mTurnOffModePref;
     private SlimSeekBarPreference mBrightnessLevel;
-    private SeekBarPreference mAnnoyingNotification;
+    private SlimSeekBarPreference mAnnoyingNotification;
     private ListPreference mDisplayTimeout;
     private ListPreference mPocketModePref;
     private ListPreference mProximityThreshold;
@@ -93,7 +93,7 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
         PreferenceScreen prefSet = getPreferenceScreen();
 
         mEnabledPref = (SwitchPreference) prefSet.findPreference(KEY_ENABLED);
-        mEnabledPref.setChecked((Settings.System.getInt(mResolver(),
+        mEnabledPref.setChecked((Settings.System.getInt(mResolver,
                 Settings.System.ENABLE_ACTIVE_DISPLAY, 0) == 1));
         mEnabledPref.setOnPreferenceChangeListener(this);
 
@@ -136,14 +136,14 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
         }
 
         mRedisplayPref = (ListPreference) prefSet.findPreference(KEY_REDISPLAY);
-        long timeout = Settings.System.getLong(mResolver(),
+        long timeout = Settings.System.getLong(mResolver,
                 Settings.System.ACTIVE_DISPLAY_REDISPLAY, 0);
         mRedisplayPref.setValue(String.valueOf(timeout));
         mRedisplayPref.setSummary(mRedisplayPref.getEntry());
         mRedisplayPref.setOnPreferenceChangeListener(this);
 
-        mAnnoyingNotification = (SeekBarPreference) prefSet.findPreference(KEY_ANNOYING);
-        mAnnoyingNotification.setValue(Settings.System.getInt(mResolver,
+        mAnnoyingNotification = (SlimSeekBarPreference) prefSet.findPreference(KEY_ANNOYING);
+        mAnnoyingNotification.setInitValue(Settings.System.getInt(mResolver,
                 Settings.System.ACTIVE_DISPLAY_ANNOYING, 0));
         mAnnoyingNotification.setOnPreferenceChangeListener(this);
 
@@ -162,7 +162,7 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
         mPrivacyAppsPref.setOnPreferenceChangeListener(this);
 
         mShowAmPmPref = (CheckBoxPreference) findPreference(KEY_SHOW_AMPM);
-        mShowAmPmPref.setChecked((Settings.System.getInt(mResolver(),
+        mShowAmPmPref.setChecked((Settings.System.getInt(mResolver,
                 Settings.System.ACTIVE_DISPLAY_SHOW_AMPM, 0) == 1));
 
         PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
@@ -173,11 +173,11 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
         int brightness = Settings.System.getInt(mResolver,
                 Settings.System.ACTIVE_DISPLAY_BRIGHTNESS, mMaximumBacklight);
         int realBrightness =  Math.round(((float)brightness / (float)mMaximumBacklight) * 100);
-        mBrightnessLevel.setValue(realBrightness);
+        mBrightnessLevel.setInitValue(realBrightness);
         mBrightnessLevel.setOnPreferenceChangeListener(this);
 
         mDisplayTimeout = (ListPreference) prefSet.findPreference(KEY_TIMEOUT);
-        timeout = Settings.System.getLong(mResolver(),
+        timeout = Settings.System.getLong(mResolver,
                 Settings.System.ACTIVE_DISPLAY_TIMEOUT, 8000L);
         mDisplayTimeout.setValue(String.valueOf(timeout));
         mDisplayTimeout.setSummary(mDisplayTimeout.getEntry());
@@ -193,7 +193,7 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
             mRedisplayPref.setSummary(mRedisplayPref.getEntries()[index]);
             return true;
         } else if (preference == mEnabledPref) {
-            Settings.System.putInt(mResolver(),
+            Settings.System.putInt(mResolver,
                     Settings.System.ENABLE_ACTIVE_DISPLAY,
                     ((Boolean) newValue).booleanValue() ? 1 : 0);
             return true;
@@ -249,17 +249,17 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
                     value ? 1 : 0);
         } else if (preference == mSunlightModePref) {
             value = mSunlightModePref.isChecked();
-            Settings.System.putInt(mResolver(),
+            Settings.System.putInt(mResolver,
                     Settings.System.ACTIVE_DISPLAY_SUNLIGHT_MODE,
                     value ? 1 : 0);
         } else if (preference == mShowAmPmPref) {
             value = mShowAmPmPref.isChecked();
-            Settings.System.putInt(mResolver(),
+            Settings.System.putInt(mResolver,
                     Settings.System.ACTIVE_DISPLAY_SHOW_AMPM,
                     value ? 1 : 0);
         } else if (preference == mTurnOffModePref) {
             value = mTurnOffModePref.isChecked();
-            Settings.System.putInt(mResolver(),
+            Settings.System.putInt(mResolver,
                     Settings.System.ACTIVE_DISPLAY_TURNOFF_MODE,
                     value ? 1 : 0);
         } else {
@@ -270,7 +270,7 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
     }
 
     private Set<String> getExcludedApps() {
-        String excluded = Settings.System.getString(mResolver(),
+        String excluded = Settings.System.getString(mResolver,
                 Settings.System.ACTIVE_DISPLAY_EXCLUDED_APPS);
         if (TextUtils.isEmpty(excluded)) {
             return null;
@@ -287,7 +287,7 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
             builder.append(value);
             delimiter = "|";
         }
-        Settings.System.putString(mResolver(),
+        Settings.System.putString(mResolver,
                 Settings.System.ACTIVE_DISPLAY_EXCLUDED_APPS, builder.toString());
     }
 

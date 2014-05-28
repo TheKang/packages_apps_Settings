@@ -123,10 +123,13 @@
     <string name="ad_content_summary">Use active display style for notification details</string>
     <string name="ad_annoying_title">Less frequent notification</string>
     <string name="ad_annoying_summary">Limit the notification to once per time period</string>
+    <string name="ad_wallpaper_title">Wallpaper see through</string>
+    <string name="ad_wallpaper_summary">Show blurred wallpaper behind active display</string>
     <string name="ad_all_notifications_title">Show ongoing</string>
     <string name="ad_all_notifications_summary">Show non-clearable notifications</string>
     <string name="ad_hide_low_priority_title">Hide low priority</string>
     <string name="ad_hide_low_priority_summary">Hide notifications marked as low priority</string>
+    <string name="ad_pocket_mode_title">Pocket mode</string>
     <string name="ad_pocket_mode_summary">Show pending notifications after taking the device out of your pocket</string>
     <string name="ad_redisplay_title">Re-display notifications</string>
     <string name="ad_timeout_title">Display timeout</string>
