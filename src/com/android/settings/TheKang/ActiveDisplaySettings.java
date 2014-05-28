@@ -211,7 +211,7 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
             storePrivacyApps((Set<String>) newValue);
             return true;
         } else if (preference == mAnnoyingNotification) {
-            int annoying = ((Integer)newValue).intValue();
+            int annoying = Integer.valueOf((String) newValue);
             Settings.System.putInt(mResolver,
                     Settings.System.ACTIVE_DISPLAY_ANNOYING, annoying);
             return true;
