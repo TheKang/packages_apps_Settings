@@ -177,4 +177,7 @@
     <!-- Restart SystemUI -->
     <string name="restart_systemui">Restart SystemUI</string>
 
+    <!-- Brightness Slider -->
+    <string name="notification_drawer_brightness_slider_title">Brightness Slider</string>
+
 </resources>
