@@ -134,6 +134,7 @@ public class QuickSettingsTiles extends Fragment implements View.OnClickListener
     private String mCurrentCustomTile = null;
 
     private boolean mShortPress = true;
+    private boolean mConfigRibbon;
 
     private int mCurrentAction = -1;
 
@@ -148,6 +149,12 @@ public class QuickSettingsTiles extends Fragment implements View.OnClickListener
         mContainer.setClipChildren(false);
         mContainer.setClipToPadding(false);
         mInflater = inflater;
+
+        // We have both a panel and the ribbon config, see which one we are using
+        Bundle args = getArguments();
+        if (args != null) {
+            mConfigRibbon = args.getBoolean("config_ribbon");
+        }
 
         QuickSettingsUtil.removeUnsupportedTiles(getActivity());
 
@@ -193,7 +200,7 @@ public class QuickSettingsTiles extends Fragment implements View.OnClickListener
             mTileTextSize = mDragView.getTileTextSize(columnCount);
             mTileTextPadding = mDragView.getTileTextPadding(columnCount);
         }
-        mTileAdapter = new TileAdapter(getActivity());
+        mTileAdapter = new TileAdapter(getActivity(), mConfigRibbon);
 
         return mDragView;
     }
@@ -218,7 +225,7 @@ public class QuickSettingsTiles extends Fragment implements View.OnClickListener
     void genTiles() {
         mDragView.removeAllViews();
         ArrayList<String> tiles = QuickSettingsUtil.getTileListFromString(
-                QuickSettingsUtil.getCurrentTiles(getActivity()));
+                QuickSettingsUtil.getCurrentTiles(getActivity(), mConfigRibbon));
         for (String tileindex : tiles) {
             QuickSettingsUtil.TileInfo tile = null;
             if (tileindex.contains(TILE_CUSTOM)) {
@@ -321,17 +328,17 @@ public class QuickSettingsTiles extends Fragment implements View.OnClickListener
         mDragView.setOnRearrangeListener(new DraggableGridView.OnRearrangeListener() {
             public void onRearrange(int oldIndex, int newIndex) {
                 ArrayList<String> tiles = QuickSettingsUtil.getTileListFromString(
-                        QuickSettingsUtil.getCurrentTiles(getActivity()));
+                        QuickSettingsUtil.getCurrentTiles(getActivity(), mConfigRibbon));
                 String oldTile = tiles.get(oldIndex);
                 tiles.remove(oldIndex);
                 tiles.add(newIndex, oldTile);
                 QuickSettingsUtil.saveCurrentTiles(getActivity(),
-                        QuickSettingsUtil.getTileStringFromList(tiles));
+                        QuickSettingsUtil.getTileStringFromList(tiles), mConfigRibbon);
             }
             @Override
             public void onDelete(int index) {
                 ArrayList<String> tiles = QuickSettingsUtil.getTileListFromString(
-                        QuickSettingsUtil.getCurrentTiles(getActivity()));
+                        QuickSettingsUtil.getCurrentTiles(getActivity(), mConfigRibbon));
                 String tileIndex = tiles.get(index);
                 if (tileIndex.contains(TILE_CUSTOM)) {
                     QuickSettingsUtil.deleteCustomTile(
@@ -343,7 +350,7 @@ public class QuickSettingsTiles extends Fragment implements View.OnClickListener
                 tiles.remove(index);
                 QuickSettingsUtil.saveCurrentTiles(getActivity(),
                         mDragView.getChildCount() == 1 ?
-                        "" : QuickSettingsUtil.getTileStringFromList(tiles));
+                        "" : QuickSettingsUtil.getTileStringFromList(tiles), mConfigRibbon);
                 if (mDragView.getChildCount() == 1) {
                     showDialogInner(DLG_DISABLED);
                 }
@@ -353,7 +360,7 @@ public class QuickSettingsTiles extends Fragment implements View.OnClickListener
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 ArrayList<String> tiles = QuickSettingsUtil.getTileListFromString(
-                        QuickSettingsUtil.getCurrentTiles(getActivity()));
+                        QuickSettingsUtil.getCurrentTiles(getActivity(), mConfigRibbon));
                 if (arg2 != mDragView.getChildCount() - 1) {
                     if (arg2 == -1) {
                         return;
@@ -855,18 +862,19 @@ public class QuickSettingsTiles extends Fragment implements View.OnClickListener
 
     private void showDialogInner(int id) {
         DialogFragment newFragment =
-                MyAlertDialogFragment.newInstance(id, mCurrentCustomTile);
+                MyAlertDialogFragment.newInstance(id, mCurrentCustomTile, mConfigRibbon);
         newFragment.setTargetFragment(this, 0);
         newFragment.show(getFragmentManager(), "dialog " + id);
     }
 
     public static class MyAlertDialogFragment extends DialogFragment {
 
-        public static MyAlertDialogFragment newInstance(int id, String tileKey) {
+        public static MyAlertDialogFragment newInstance(int id, String tileKey, Boolean isRibbon) {
             MyAlertDialogFragment frag = new MyAlertDialogFragment();
             Bundle args = new Bundle();
             args.putInt("id", id);
             args.putString("tileKey", tileKey);
+            args.putBoolean("isRibbon", isRibbon);
             frag.setArguments(args);
             return frag;
         }
@@ -879,6 +887,7 @@ public class QuickSettingsTiles extends Fragment implements View.OnClickListener
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             int id = getArguments().getInt("id");
             final String tileKey = getArguments().getString("tileKey");
+            final Boolean isRibbon = getArguments().getBoolean("isRibbon");
             switch (id) {
                 case DLG_DISABLED:
                     return new AlertDialog.Builder(getActivity())
@@ -910,7 +919,7 @@ public class QuickSettingsTiles extends Fragment implements View.OnClickListener
                     .setPositiveButton(R.string.dlg_ok,
                         new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            QuickSettingsUtil.resetTiles(getActivity());
+                            QuickSettingsUtil.resetTiles(getActivity(), isRibbon);
                             getOwner().genTiles();
                         }
                     })
@@ -1082,7 +1091,7 @@ public class QuickSettingsTiles extends Fragment implements View.OnClickListener
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    String tiles = QuickSettingsUtil.getCurrentTiles(getActivity());
+                                    String tiles = QuickSettingsUtil.getCurrentTiles(getActivity(), isRibbon);
                                     String picked = getOwner().mTileAdapter.getTileId(position);
                                     ArrayList<String> curr = new ArrayList<String>();
                                     // A blank string indicates tiles are currently disabled
@@ -1098,7 +1107,7 @@ public class QuickSettingsTiles extends Fragment implements View.OnClickListener
                                         curr.add(picked);
                                     }
                                     QuickSettingsUtil.saveCurrentTiles(getActivity(),
-                                            QuickSettingsUtil.getTileStringFromList(curr));
+                                            QuickSettingsUtil.getTileStringFromList(curr), isRibbon);
                                 }
                             }).start();
                             TileInfo info = QuickSettingsUtil.TILES.get(
@@ -1526,10 +1535,12 @@ public class QuickSettingsTiles extends Fragment implements View.OnClickListener
         }
 
         private Entry[] mTiles;
+        private boolean mIsRibbon;
 
-        public TileAdapter(Context context) {
+        public TileAdapter(Context context, boolean isRibbon) {
             super(context, android.R.layout.simple_list_item_1);
             mTiles = new Entry[getCount()];
+            mIsRibbon = isRibbon;
             loadItems(context.getResources());
             sortItems();
         }
@@ -1577,7 +1588,7 @@ public class QuickSettingsTiles extends Fragment implements View.OnClickListener
         @Override
         public boolean isEnabled(int position) {
             String usedTiles = QuickSettingsUtil.getCurrentTiles(
-                    getContext());
+                    getContext(), mIsRibbon);
             String tile = mTiles[position].tile.getId();
             if (TILE_CUSTOM.equals(tile) || TILE_CONTACT.equals(tile)) {
                 return true;

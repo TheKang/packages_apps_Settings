@@ -94,29 +94,9 @@
             android:key="tile_picker"
             android:title="@string/tile_picker_title"
             android:summary="@string/tile_picker_summary"
-            android:fragment="com.android.settings.slim.quicksettings.QuickSettingsTiles" />
-
-        <CheckBoxPreference
-            android:key="qs_quick_access"
-            android:title="@string/title_quick_access"
-            android:defaultValue="false" />
-
-        <com.android.settings.slim.SystemSettingListPreference
-            android:key="qs_quick_access_size"
-            android:title="@string/title_quick_access_size"
-            android:dialogTitle="@string/title_quick_access_size"
-            android:entries="@array/qs_quick_access_size_entries"
-            android:entryValues="@array/qs_quick_access_size_values"
-            android:defaultValue="0"
-            android:dependency="qs_quick_access" />
-
-        <CheckBoxPreference
-            android:key="qs_quick_access_linked"
-            android:title="@string/title_quick_access_linked"
-            android:summary="@string/summary_quick_access_linked"
-            android:defaultValue="true"
-            android:dependency="qs_quick_access"
-            android:disableDependentsState="true" />
+            android:fragment="com.android.settings.slim.quicksettings.QuickSettingsTiles" >
+            <extra android:name="config_ribbon" android:value="false" />
+        </PreferenceScreen>
 
         <ListPreference
             android:key="quick_pulldown"
@@ -143,6 +123,40 @@
             android:fragment="com.android.settings.slim.quicksettings.QuickSettingsTilesStyle"
             android:title="@string/quicksettings_tiles_style"
             android:summary="@string/summary_quicksettings_tiles_style" />
+
+    <PreferenceCategory
+        android:title="@string/category_quick_access" />
+
+        <com.android.settings.slim.SystemSettingCheckBoxPreference
+            android:key="qs_quick_access"
+            android:title="@string/title_quick_access"
+            android:defaultValue="false" />
+
+        <com.android.settings.slim.SystemSettingListPreference
+            android:key="qs_quick_access_size"
+            android:title="@string/title_quick_access_size"
+            android:dialogTitle="@string/title_quick_access_size"
+            android:entries="@array/qs_quick_access_size_entries"
+            android:entryValues="@array/qs_quick_access_size_values"
+            android:defaultValue="0"
+            android:dependency="qs_quick_access" />
+
+        <com.android.settings.slim.SystemSettingCheckBoxPreference
+            android:key="qs_quick_access_linked"
+            android:title="@string/title_quick_access_linked"
+            android:summary="@string/summary_quick_access_linked"
+            android:defaultValue="true"
+            android:dependency="qs_quick_access"
+            android:disableDependentsState="true" />
+
+        <PreferenceScreen
+            android:key="tile_picker"
+            android:title="@string/tile_picker_title"
+            android:summary="@string/tile_picker_summary"
+            android:dependency="qs_quick_access_linked"
+            android:fragment="com.android.settings.slim.quicksettings.QuickSettingsTiles" >
+            <extra android:name="config_ribbon" android:value="true" />
+        </PreferenceScreen>
 
     <PreferenceCategory
         android:title="@string/additional_options_title" />
