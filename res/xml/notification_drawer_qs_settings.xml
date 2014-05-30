@@ -53,7 +53,7 @@
         <extra android:name="fragment" android:value="com.android.settings.slim.fragments.NotificationsShortcutFragment" />
     </PreferenceScreen>
 
-    <com.android.settings.slim.SystemSettingListPreference
+    <com.android.settings.slim.SystemSettingCheckBoxPreference
         android:key="notification_brightness_slider"
         android:title="@string/notification_drawer_brightness_slider_title"
         android:defaultValue="false" />
