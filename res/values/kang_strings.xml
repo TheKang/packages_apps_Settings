@@ -58,10 +58,6 @@
     <string name="status_bar_auto_unhide_title">Status bar auto unhide</string>
     <string name="status_bar_auto_unhide_summary">Automatically unhide status bar temporarily in fullscreen on new notifications</string>
 
-    <!-- Custom Recent Settings -->
-    <string name="custom_recent_title">Enable Slim Recents</string>
-    <string name="custom_recent_summary">Tick this box to switch between Slim/Stock Recents Screen</string>
-
     <!-- Quick access ribbon -->
     <string name="category_quick_access">Quick Access ribbon</string>
     <string name="title_quick_access">Show in drawer</string>
@@ -81,8 +77,16 @@
     <string name="status_bar_network_usage_color_reset">Reset color</string>
     <string name="status_bar_network_usage_color_reset_message">Reset network stats color to default?</string>
 
+    <!-- Custom Recent Settings -->
     <string name="slim_recent_panel_category">Slim Recent Apps Panel</string>
     <string name="stock_recent_panel_category">Default Recent Apps Panel</string>
+
+    <string name="custom_recent_title">Enable Slim Recents</string>
+    <string name="custom_recent_summary">Tick this box to switch between Slim/Stock Recents Screen</string>
+
+    <string name="custom_recent_show_topmost_title">Show topmost task</string>
+    <string name="custom_recent_show_topmost_summary">Don\'t exclude the topmost task in recents view</string>
+
 
     <!--  Recents clear all -->
     <string name="show_recent_clear_all_button_title">Show clear all button</string>
