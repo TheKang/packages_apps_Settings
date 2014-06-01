@@ -184,4 +184,8 @@
     <!-- Brightness Slider -->
     <string name="notification_drawer_brightness_slider_title">Brightness Slider</string>
 
+    <!-- Status bar notification count -->
+    <string name="status_bar_notification_count_title">Notification count</string>
+    <string name="status_bar_notification_count_summary">Display number of similar notifications</string>
+
 </resources>
