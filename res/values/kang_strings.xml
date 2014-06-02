@@ -216,4 +216,8 @@
     <string name="battery_bar_style_entries_regular">Regular</string>
     <string name="battery_bar_style_entries_center">Center-mirrored</string>
 
+    <!-- Battery arc lockscreen handle -->
+    <string name="battery_arc_lockscreen_handle">Battery arc handle</string>
+    <string name="battery_arc_lockscreen_handle_summary">An arc around the lockscreen handle representing battery level</string>
+
 </resources>

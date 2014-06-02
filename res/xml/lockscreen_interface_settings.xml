@@ -45,4 +45,10 @@
         android:title="@string/lockscreen_glowpad_torch_title"
         android:summary="@string/lockscreen_glowpad_torch_summary" />
 
+    <com.android.settings.slim.SystemSettingCheckBoxPreference
+        android:key="battery_arc_lockscreen_handle"
+        android:title="@string/battery_arc_lockscreen_handle"
+        android:summary="@string/battery_arc_lockscreen_handle_summary"
+        android:defaultValue="false" />
+
 </PreferenceScreen>
