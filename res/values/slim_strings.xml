@@ -1200,30 +1200,6 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="recent_panel_lefty_mode_title">Show on the left edge</string>
     <string name="recent_panel_lefty_mode_summary">Show recent apps panel on the left edge.</string>
 
-    <!-- Density Changer -->
-    <string name="custom_density_title">Custom lcd density</string>
-    <string name="set_custom_density_title">Set custom density</string>
-    <string name="set_custom_density_set">Set</string>
-    <string name="current_density">"Current density: "</string>
-    <string name="new_density">"New density: "</string>
-    <string name="density_change_warning">Note: Changing density will close all running apps!</string>
-
-    <!-- Battery Bar -->
-    <string name="status_bar_battery_bar_title">Battery bar style</string>
-    <string name="battery_bar">Battery bar location</string>
-    <string name="battery_bar_color">Battery bar color</string>
-    <string name="battery_bar_cat">Battery bar style</string>
-    <string name="battery_bar_style_title">Battery bar alignment</string>
-    <string name="battery_bar_thickness_title">Battery bar thickness</string>
-    <string name="battery_bar_animate_title">Charging animation</string>
-    <string name="battery_bar_animate_summary">The charging animation may result in a poor user experience. Enable at your own discretion.</string>
-    <string name="battery_bar_entries_hide">Hide</string>
-    <string name="battery_bar_entries_statusbar">Statusbar</string>
-    <string name="battery_bar_entries_navbar_top">Top of navbar</string>
-    <string name="battery_bar_entries_navbar_bottom">Bottom of navbar</string>
-    <string name="battery_bar_style_entries_regular">Regular</string>
-    <string name="battery_bar_style_entries_center">Center-mirrored</string>
-
     <!-- Performance settings  -->
     <string name="performance_settings_title">Performance</string>
     <string name="gamma_control">Gamma Control</string>
@@ -1313,5 +1289,14 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <!-- Performance Settings : 16bpp Alpha -->
     <string name="pref_use_16bpp_alpha_title">16bit transparency</string>
     <string name="pref_use_16bpp_alpha_summary">Better graphics performance, but lower quality and may cause visual artifacts (requires reboot)</string>
+
+    <!-- App moving -->
+    <string name="app_moving_enable">Enable app moving</string>
+    <string name="app_moving_disable">Disable app moving</string>
+    <string name="app_moving_reboot_title">Reboot now?</string>
+    <string name="app_moving_reboot_enabled_desc">Successfully enabled application moving.\n\nThe device needs to be rebooted for the setting to take effect.</string>
+    <string name="app_moving_reboot_disabled_desc">Successfully disabled application moving.\n\nThe device needs to be rebooted for the setting to take effect.</string>
+    <string name="app_moving_reboot_now_button">Reboot now</string>
+    <string name="app_moving_reboot_later_button">Reboot later</string>
 
 </resources>

@@ -192,4 +192,28 @@
     <string name="statusbar_hide_signal_bars_title">Hide Signal Bars</string>
     <string name="statusbar_hide_signal_bars_summary">Hide the signal bars in status bar</string>
 
+    <!-- Density Changer -->
+    <string name="custom_density_title">Custom LCD density</string>
+    <string name="set_custom_density_title">Set custom density</string>
+    <string name="set_custom_density_set">Set</string>
+    <string name="current_density">"Current density: "</string>
+    <string name="new_density">"New density: "</string>
+    <string name="density_change_warning">Note: Changing density will close all running apps!</string>
+
+    <!-- Battery Bar -->
+    <string name="status_bar_battery_bar_title">Battery bar style</string>
+    <string name="battery_bar">Battery bar location</string>
+    <string name="battery_bar_color">Battery bar color</string>
+    <string name="battery_bar_cat">Battery bar style</string>
+    <string name="battery_bar_style_title">Battery bar alignment</string>
+    <string name="battery_bar_thickness_title">Battery bar thickness</string>
+    <string name="battery_bar_animate_title">Charging animation</string>
+    <string name="battery_bar_animate_summary">The charging animation may result in a poor user experience. Enable at your own discretion.</string>
+    <string name="battery_bar_entries_hide">Hide</string>
+    <string name="battery_bar_entries_statusbar">Statusbar</string>
+    <string name="battery_bar_entries_navbar_top">Top of navbar</string>
+    <string name="battery_bar_entries_navbar_bottom">Bottom of navbar</string>
+    <string name="battery_bar_style_entries_regular">Regular</string>
+    <string name="battery_bar_style_entries_center">Center-mirrored</string>
+
 </resources>
