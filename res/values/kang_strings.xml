@@ -88,7 +88,6 @@
     <string name="custom_recent_show_topmost_title">Show topmost task</string>
     <string name="custom_recent_show_topmost_summary">Don\'t exclude the topmost task in recents view</string>
 
-
     <!--  Recents clear all -->
     <string name="show_recent_clear_all_button_title">Show clear all button</string>
     <string name="show_recent_clear_all_button_summary">Tick to show or untick to hide the clear all button within the recent applications screen</string>
@@ -227,5 +226,9 @@
 
     <!-- SuperSU header name - the app hides itself from launcher based on this resource name being present in com.android.settings -->
     <string name="supersu_title">SuperSU</string>
+
+    <!-- Lockscreen -->
+    <string name="lockscreen_see_through_title">See through</string>
+    <string name="lockscreen_see_through_summary">Shows the content behind your lockscreen, your data may be visible to those around you</string>
 
 </resources>
