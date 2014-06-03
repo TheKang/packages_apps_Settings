@@ -78,6 +78,7 @@
     <string name="status_bar_network_usage_color_reset_message">Reset network stats color to default?</string>
 
     <!-- Custom Recent Settings -->
+    <string name="recent_panel_title">Recent Apps Panel</string>
     <string name="slim_recent_panel_category">Slim Recent Apps Panel</string>
     <string name="stock_recent_panel_category">Default Recent Apps Panel</string>
 
