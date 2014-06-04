@@ -54,7 +54,7 @@ public class AdditionalSettings extends SettingsPreferenceFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.recent_panel_settings);
+        addPreferencesFromResource(R.xml.additional_settings);
 
         PreferenceScreen prefSet = getPreferenceScreen();
 

@@ -20,7 +20,7 @@
     android:title="@string/shake_events_title">
 
     <com.android.settings.slim.SystemSettingCheckBoxPreference
-        android:key="force_dualpanel"
+        android:key="force_dual_panel"
         android:title="@string/force_dualpanel_title"
         android:summary="@string/force_dualpanel_summary"
         android:defaultValue="false" />

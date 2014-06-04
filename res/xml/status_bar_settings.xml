@@ -25,7 +25,7 @@
 
         <PreferenceScreen
             android:fragment="com.android.settings.slim.StatusBarClockStyle"
-            android:key="status_bar_clock_style"
+            android:key="statusbar_clockstyle_pref"
             android:title="@string/status_bar_clock" />
 
     </PreferenceCategory>
