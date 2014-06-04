@@ -22,7 +22,10 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.UserHandle;
+import android.os.UserManager;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.preference.PreferenceCategory;
@@ -97,7 +100,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         mShortcuts = (Preference) findPreference(PREF_LOCKSCREEN_SHORTCUTS);
         mShortcuts.setEnabled(!mLockscreenEightTargets.isChecked());
 
-        mLockscreenRotation = (ListPreference) root.findPreference(KEY_LOCKSCREEN_ROTATION);
+        mLockscreenRotation = (ListPreference) prefs.findPreference(KEY_LOCKSCREEN_ROTATION);
         if (mLockscreenRotation != null) {
             boolean defaultVal = !DeviceUtils.isPhone(getActivity());
             int userVal = Settings.System.getIntForUser(getContentResolver(),
