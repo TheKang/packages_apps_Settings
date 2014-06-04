@@ -72,8 +72,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private static final String KEY_DEVICE_ADMIN_CATEGORY = "device_admin_category";
     private static final String KEY_LOCK_AFTER_TIMEOUT = "lock_after_timeout";
     private static final String KEY_OWNER_INFO_SETTINGS = "owner_info_settings";
-    private static final String KEY_LOCKSCREEN_ROTATION = "lockscreen_rotation";
-    private static final String KEY_ALWAYS_BATTERY_PREF = "lockscreen_battery_status";
     private static final String KEY_ENABLE_WIDGETS = "keyguard_enable_widgets";
     private static final String KEY_INTERFACE_SETTINGS = "lock_screen_settings";
     private static final String KEY_TARGET_SETTINGS = "lockscreen_targets";
@@ -143,8 +141,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
     private ListPreference mShakeTimer;
     private CheckBoxPreference mLockBeforeUnlock;
     private CheckBoxPreference mMenuUnlock;
-    private ListPreference mLockscreenRotation;
-    private CheckBoxPreference mBatteryStatus;
 
     private Preference mNotificationAccess;
     private Preference mLockInterface;
@@ -398,25 +394,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
                 mEnableKeyguardWidgets.setEnabled(!disabled);
             }
         }
-
-        mLockscreenRotation = (ListPreference) root.findPreference(KEY_LOCKSCREEN_ROTATION);
-        if (mLockscreenRotation != null) {
-            boolean defaultVal = !DeviceUtils.isPhone(getActivity());
-            int userVal = Settings.System.getIntForUser(getContentResolver(),
-                    Settings.System.LOCKSCREEN_ROTATION_ENABLED, defaultVal ? 1 : 0,
-                    UserHandle.USER_CURRENT);
-            mLockscreenRotation.setValue(String.valueOf(userVal));
-            if (userVal == 0) {
-                mLockscreenRotation.setSummary(mLockscreenRotation.getEntry());
-            } else {
-                mLockscreenRotation.setSummary(mLockscreenRotation.getEntry()
-                        + " " + getResources().getString(
-                        R.string.lockscreen_rotation_summary_extra));
-            }
-            mLockscreenRotation.setOnPreferenceChangeListener(this);
-        }
-
-        mBatteryStatus = (CheckBoxPreference) root.findPreference(KEY_ALWAYS_BATTERY_PREF);
 
         // Menu Unlock
         mMenuUnlock = (CheckBoxPreference) root.findPreference(MENU_UNLOCK_PREF);
@@ -743,13 +720,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
             }
         }
 
-        if (mBatteryStatus != null) {
-            mBatteryStatus.setChecked(Settings.System.getIntForUser(getContentResolver(),
-                    Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY, 0,
-                    UserHandle.USER_CURRENT) != 0);
-            mBatteryStatus.setOnPreferenceChangeListener(this);
-        }
-
         updateBlacklistSummary();
     }
 
@@ -912,23 +882,6 @@ public class SecuritySettings extends RestrictedSettingsFragment
                     Integer.valueOf((String) value));
             mAdvancedReboot.setValue(String.valueOf(value));
             mAdvancedReboot.setSummary(mAdvancedReboot.getEntry());
-        } else if (preference == mLockscreenRotation) {
-            int userVal = Integer.valueOf((String) value);
-            Settings.System.putIntForUser(getContentResolver(),
-                    Settings.System.LOCKSCREEN_ROTATION_ENABLED,
-                    userVal, UserHandle.USER_CURRENT);
-            mLockscreenRotation.setValue(String.valueOf(value));
-            if (userVal == 0) {
-                mLockscreenRotation.setSummary(mLockscreenRotation.getEntry());
-            } else {
-                mLockscreenRotation.setSummary(mLockscreenRotation.getEntry()
-                        + " " + getResources().getString(
-                        R.string.lockscreen_rotation_summary_extra));
-            }
-        } else if (preference == mBatteryStatus) {
-            Settings.System.putIntForUser(getContentResolver(),
-                    Settings.System.LOCKSCREEN_ALWAYS_SHOW_BATTERY,
-                    ((Boolean) value) ? 1 : 0, UserHandle.USER_CURRENT);
         } else if (preference == mMenuUnlock) {
             Settings.System.putIntForUser(getContentResolver(),
                     Settings.System.MENU_UNLOCK_SCREEN,

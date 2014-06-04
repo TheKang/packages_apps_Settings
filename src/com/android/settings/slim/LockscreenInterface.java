@@ -46,10 +46,12 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     private static final String PREF_LOCKSCREEN_EIGHT_TARGETS = "lockscreen_eight_targets";
     private static final String PREF_LOCKSCREEN_SHORTCUTS = "lockscreen_shortcuts";
     private static final String PREF_LOCKSCREEN_TORCH = "lockscreen_torch";
+    private static final String KEY_LOCKSCREEN_ROTATION = "lockscreen_rotation";
 
     private CheckBoxPreference mLockscreenEightTargets;
     private CheckBoxPreference mGlowpadTorch;
     private Preference mShortcuts;
+    private ListPreference mLockscreenRotation;
 
     private boolean mCheckPreferences;
 
@@ -95,6 +97,23 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         mShortcuts = (Preference) findPreference(PREF_LOCKSCREEN_SHORTCUTS);
         mShortcuts.setEnabled(!mLockscreenEightTargets.isChecked());
 
+        mLockscreenRotation = (ListPreference) root.findPreference(KEY_LOCKSCREEN_ROTATION);
+        if (mLockscreenRotation != null) {
+            boolean defaultVal = !DeviceUtils.isPhone(getActivity());
+            int userVal = Settings.System.getIntForUser(getContentResolver(),
+                    Settings.System.LOCKSCREEN_ROTATION_ENABLED, defaultVal ? 1 : 0,
+                    UserHandle.USER_CURRENT);
+            mLockscreenRotation.setValue(String.valueOf(userVal));
+            if (userVal == 0) {
+                mLockscreenRotation.setSummary(mLockscreenRotation.getEntry());
+            } else {
+                mLockscreenRotation.setSummary(mLockscreenRotation.getEntry()
+                        + " " + getResources().getString(
+                        R.string.lockscreen_rotation_summary_extra));
+            }
+            mLockscreenRotation.setOnPreferenceChangeListener(this);
+        }
+
         mCheckPreferences = true;
         return prefs;
     }
@@ -123,6 +142,19 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
                     Settings.System.LOCKSCREEN_GLOWPAD_TORCH,
                     (Boolean) objValue ? 1 : 0);
             return true;
+        } else if (preference == mLockscreenRotation) {
+            int userVal = Integer.valueOf((String) objValue);
+            Settings.System.putIntForUser(getContentResolver(),
+                    Settings.System.LOCKSCREEN_ROTATION_ENABLED,
+                    userVal, UserHandle.USER_CURRENT);
+            mLockscreenRotation.setValue(String.valueOf(objValue));
+            if (userVal == 0) {
+                mLockscreenRotation.setSummary(mLockscreenRotation.getEntry());
+            } else {
+                mLockscreenRotation.setSummary(mLockscreenRotation.getEntry()
+                        + " " + getResources().getString(
+                        R.string.lockscreen_rotation_summary_extra));
+            }
         }
         return false;
     }
