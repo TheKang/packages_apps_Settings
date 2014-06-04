@@ -231,4 +231,10 @@
     <string name="lockscreen_see_through_title">See through</string>
     <string name="lockscreen_see_through_summary">Shows the content behind your lockscreen, your data may be visible to those around you</string>
 
+    <!-- Force DualPanel Settings -->
+    <string name="force_dualpanel_title">Force dual panel settings</string>
+    <string name="force_dualpanel_summary">Force showing the settings in dual panel style</string>
+
+    <string name="additional_settings">Additional</string>
+
 </resources>
