@@ -30,6 +30,7 @@ import android.os.UserHandle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.view.Gravity;
@@ -58,7 +59,11 @@ public class RecentPanel extends SettingsPreferenceFragment implements
             "recent_menu_clear_all";
     private static final String RECENT_MENU_CLEAR_ALL_LOCATION =
             "recent_menu_clear_all_location";
-            
+    private static final String STOCK_RECENT_PANEL_CATEGORY =
+            "stock_recent_panel_category";
+    //private static final String SLIM_RECENT_PANEL_CATEGORY =
+    //        "slim_recent_panel_category";
+
     private CheckBoxPreference mRecentsCustom;
     private CheckBoxPreference mRecentsShowTopmost;
     private CheckBoxPreference mRecentPanelLeftyMode;
@@ -66,6 +71,8 @@ public class RecentPanel extends SettingsPreferenceFragment implements
     private ListPreference mRecentPanelExpandedMode;
     private CheckBoxPreference mRecentClearAll;
     private ListPreference mRecentClearAllPosition;
+    private PreferenceCategory mStockRecentPanel;
+    //private PreferenceCategory mSlimRecentPanel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,11 +82,16 @@ public class RecentPanel extends SettingsPreferenceFragment implements
 
         PreferenceScreen prefSet = getPreferenceScreen();
 
+        mStockRecentPanel = (PreferenceCategory) findPreference(STOCK_RECENT_PANEL_CATEGORY);
+        //mSlimRecentPanel = (PreferenceCategory) findPreference(SLIM_RECENT_PANEL_CATEGORY);
+
         boolean enableRecentsCustom = Settings.System.getBoolean(getContentResolver(),
                                       Settings.System.CUSTOM_RECENT, false);
         mRecentsCustom = (CheckBoxPreference) findPreference(CUSTOM_RECENT_MODE);
         mRecentsCustom.setChecked(enableRecentsCustom);
         mRecentsCustom.setOnPreferenceChangeListener(this);
+
+        mStockRecentPanel.setEnabled(!enableRecentsCustom);
 
         boolean enableRecentsShowTopmost = Settings.System.getBoolean(getContentResolver(),
                                       Settings.System.CUSTOM_RECENT_SHOW_TOPMOST, false);
@@ -160,6 +172,7 @@ public class RecentPanel extends SettingsPreferenceFragment implements
             Settings.System.putBoolean(getContentResolver(),
                     Settings.System.CUSTOM_RECENT,
                     ((Boolean) newValue) ? true : false);
+            mStockRecentPanel.setEnabled(((Boolean) newValue) ? false : true);
             Helpers.restartSystemUI();
             return true;
         } else if (preference == mRecentsShowTopmost) {
