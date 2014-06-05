@@ -382,6 +382,7 @@ Mittels \"Entfernen\" kann die ausgewählte Stützstelle aus dem Helligkeitsverl
     <string name="shortcut_action_power_off">Ausschalten</string>
     <string name="shortcut_action_reboot">Neustart</string>
     <string name="shortcut_action_sound">Ton</string>
+    <string name="shortcut_action_profiles">Profile</string>
     <string name="shortcut_action_app">Benutzerdefinierte App</string>
     <string name="shortcut_action_home">Home</string>
     <string name="shortcut_action_back">Zurück</string>
