@@ -160,12 +160,14 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarNetStats.isChecked();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.STATUS_BAR_NETWORK_STATS, value ? 1 : 0);
+            return true;
         } else if (preference == mStatusBarNetStatsHide) {
             value = mStatusBarNetStatsHide.isChecked();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.STATUS_BAR_NETWORK_STATS_HIDE, value ? 1 : 0);
+            return true;
         }
-        return true;
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
     @Override
