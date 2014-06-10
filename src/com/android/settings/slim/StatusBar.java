@@ -198,9 +198,9 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private void updateClockStyleDescription() {
         if (Settings.System.getInt(getContentResolver(),
                Settings.System.STATUS_BAR_CLOCK, 1) == 1) {
-            mClockStyle.setSummary(getString(R.string.enabled));
+//            mClockStyle.setSummary(getString(R.string.enabled));
         } else {
-            mClockStyle.setSummary(getString(R.string.disabled));
+//            mClockStyle.setSummary(getString(R.string.disabled));
          }
     }
 
