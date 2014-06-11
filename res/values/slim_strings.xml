@@ -384,6 +384,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="shortcut_action_reboot">Reboot</string>
     <string name="shortcut_action_sound">Sound</string>
     <string name="shortcut_action_profiles">Profiles</string>
+    <string name="shortcut_action_onthego">On-The-Go Mode</string>
     <string name="shortcut_action_app">Custom app</string>
     <string name="shortcut_action_home">Home</string>
     <string name="shortcut_action_back">Back</string>
@@ -904,6 +905,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="custom_tile_resolve_name">Unknown</string>
     <string name="title_tile_fcharge">Fast charge</string>
     <string name="title_tile_profile">Profile</string>
+    <string name="title_tile_onthego">On-The-Go</string>
 
     <!-- QuickSettings style options -->
     <string name="quicksettings_tiles_style">Style</string>
