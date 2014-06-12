@@ -1045,4 +1045,12 @@
     <string name="battery_bar_style_entries_regular">Обычный</string>
     <string name="battery_bar_style_entries_center">Зеркальный от центра</string>
 
+    <!-- App moving -->
+    <string name="app_moving_enable">Включить перемещение приложений</string>
+    <string name="app_moving_disable">Отключить перемщеение приложений</string>
+    <string name="app_moving_reboot_title">Перезагрузить</string>
+    <string name="app_moving_reboot_enabled_desc">Перемещение приложений включено.\n\nДля применения перезагрузите устройство.</string>
+    <string name="app_moving_reboot_disabled_desc">Перемещение приложений отключено.\n\nДля применения перезагрузите устройство.</string>
+    <string name="app_moving_reboot_now_button">Сейчас</string>
+    <string name="app_moving_reboot_later_button">Позже</string>
 </resources>
