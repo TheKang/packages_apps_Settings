@@ -26,9 +26,15 @@
         android:defaultValue="false" />
 
     <com.android.settings.slim.SystemSettingCheckBoxPreference
-        android:key="hover_state"
-        android:title="@string/enable_hover_title"
-        android:summary="@string/enable_hover_summary"
+        android:key="hover_exclude_non_clearable"
+        android:title="@string/hover_exclude_non_clearable_title"
+        android:summary="@string/hover_exclude_non_clearable_summary"
+        android:defaultValue="false" />
+
+    <com.android.settings.slim.SystemSettingCheckBoxPreference
+        android:key="hover_exclude_low_priority"
+        android:title="@string/hover_exclude_low_priority_title"
+        android:summary="@string/hover_exclude_low_priority_summary"
         android:defaultValue="false" />
 
 </PreferenceScreen>
