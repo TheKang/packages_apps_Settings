@@ -367,8 +367,8 @@ selecting the profile in the future.</string>
     <string name="toggleNfc">NFC</string>
 
     <!-- HOVER -->
-    <string name="enable_hover_title">HOVER</string>
-    <string name="enable_hover_summary">Enable PA\'s HOVER Notification System (EXPERIMENTAL!)</string>
+    <string name="hover_enabled_title">HOVER</string>
+    <string name="hover_enabled_summary">Enable PA\'s HOVER Notification System (EXPERIMENTAL!)</string>
 
     <string name="hover_exclude_low_priority_title">Exclude low priority</string>
     <string name="hover_exclude_low_priority_summary">Exclude notifications marked as low priority</string>
