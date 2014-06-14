@@ -366,4 +366,8 @@ selecting the profile in the future.</string>
     <string name="toggle2g3g">2G/3G</string>
     <string name="toggleNfc">NFC</string>
 
+    <!-- HOVER -->
+    <string name="enable_hover_title">HOVER</string>
+    <string name="enable_hover_summary">Enable PA\'s HOVER Notification System (EXPERIMENTAL!)</string>
+
 </resources>
