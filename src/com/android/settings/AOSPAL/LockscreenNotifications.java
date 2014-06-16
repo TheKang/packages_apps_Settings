@@ -9,7 +9,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.Preference;
-import android.preference.SeekBarPreference;
+import android.preference.SlimSeekBarPreference;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.WindowManager;
@@ -54,7 +54,7 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
     private NumberPickerPreference mNotificationsHeight;
     private CheckBoxPreference mPrivacyMode;
     private CheckBoxPreference mDynamicWidth;
-    private SeekBarPreference mOffsetTop;
+    private SlimSeekBarPreference mOffsetTop;
     private AppMultiSelectListPreference mExcludedAppsPref;
     private ColorPickerPreference mNotificationColor;
 
@@ -124,19 +124,20 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
         mForceExpandedView.setEnabled(mLockscreenNotifications.isChecked() && mExpandedView.isChecked()
                     && !mPrivacyMode.isChecked());
 
-        mOffsetTop = (SeekBarPreference) prefs.findPreference(KEY_OFFSET_TOP);
-        mOffsetTop.setProgress((int)(Settings.System.getFloat(cr,
-                Settings.System.LOCKSCREEN_NOTIFICATIONS_OFFSET_TOP, 0.3f) * 100));
-        mOffsetTop.setTitle(getResources().getText(R.string.offset_top) + " " + mOffsetTop.getProgress() + "%");
+        mOffsetTop = (SlimSeekBarPreference) prefs.findPreference(KEY_OFFSET_TOP);
+        int val = (int)(Settings.System.getFloat(cr,
+                Settings.System.LOCKSCREEN_NOTIFICATIONS_OFFSET_TOP, 0.3f) * 100);
+        mOffsetTop.setInitValue(val);
+        mOffsetTop.setTitle(getResources().getText(R.string.offset_top) + " " + val + "%");
         mOffsetTop.setOnPreferenceChangeListener(this);
         mOffsetTop.setEnabled(mLockscreenNotifications.isChecked());
 
         mNotificationsHeight = (NumberPickerPreference) prefs.findPreference(KEY_NOTIFICATIONS_HEIGHT);
-        mNotificationsHeight.setValue(Settings.System.getInt(cr,
-                    Settings.System.LOCKSCREEN_NOTIFICATIONS_HEIGHT, 4));
+        val = Settings.System.getInt(cr, Settings.System.LOCKSCREEN_NOTIFICATIONS_HEIGHT, 4);
+        mNotificationsHeight.setValue(val);
         Point displaySize = new Point();
         ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(displaySize);
-        int max = Math.round((float)displaySize.y * (1f - (mOffsetTop.getProgress() / 100f)) /
+        int max = Math.round((float)displaySize.y * (1f - (val / 100f)) /
                 (float) getResources().getDimensionPixelSize(R.dimen.notification_row_min_height));
         mNotificationsHeight.setMinValue(1);
         mNotificationsHeight.setMaxValue(max);
@@ -232,7 +233,7 @@ public class LockscreenNotifications extends SettingsPreferenceFragment implemen
             mOffsetTop.setTitle(getResources().getText(R.string.offset_top) + " " + (Integer)value + "%");
             Point displaySize = new Point();
             ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getSize(displaySize);
-            int max = Math.round((float)displaySize.y * (1f - (mOffsetTop.getProgress() / 100f)) /
+            int max = Math.round((float)displaySize.y * (1f - ((Integer)value / 100f)) /
                     (float) getResources().getDimensionPixelSize(R.dimen.notification_row_min_height));
             mNotificationsHeight.setMaxValue(max);
         } else if (pref == mNotificationColor) {

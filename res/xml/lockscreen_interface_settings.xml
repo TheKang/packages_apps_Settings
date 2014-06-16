@@ -94,7 +94,7 @@
         android:key="lockscreen_blur_radius"
         android:title="@string/lockscreen_blur_radius_title"
         android:max="25"
-        settings:minappbar="0"
+        settings:min="0"
         settings:unitsLeft=""
         settings:unitsRight=""
         android:defaultValue="14"

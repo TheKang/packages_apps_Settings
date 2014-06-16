@@ -104,7 +104,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         mShortcuts.setEnabled(!mLockscreenEightTargets.isChecked());
 
         mBlurRadius = (SlimSeekBarPreference) findPreference(KEY_BLUR_RADIUS);
-        mBlurRadius.setValue(Settings.System.getInt(getContentResolver(),
+        mBlurRadius.setInitValue(Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCKSCREEN_BLUR_RADIUS, 14));
         mBlurRadius.setOnPreferenceChangeListener(this);
 
@@ -154,8 +154,9 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
                     (Boolean) objValue ? 1 : 0);
             return true;
         } else if (preference == mBlurRadius) {
-            int radius = ((Integer) objValue).intValue();
-            Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_BLUR_RADIUS, radius);
+            int radius = Integer.valueOf((String) objValue);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_BLUR_RADIUS, radius);
             return true;
         } else if (preference == mLockscreenRotation) {
             int userVal = Integer.valueOf((String) objValue);

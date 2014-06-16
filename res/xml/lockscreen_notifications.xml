@@ -59,7 +59,7 @@
     <PreferenceCategory
         android:title="@string/layout" >
 
-        <SeekBarPreference
+        <SlimSeekBarPreference
             android:key="offset_top"
             android:title="@string/offset_top"
             android:max="100"
