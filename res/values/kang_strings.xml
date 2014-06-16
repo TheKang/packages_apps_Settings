@@ -227,9 +227,10 @@
     <!-- SuperSU header name - the app hides itself from launcher based on this resource name being present in com.android.settings -->
     <string name="supersu_title">SuperSU</string>
 
-    <!-- Lockscreen -->
+    <!-- Lockscreen-See-Through -->
     <string name="lockscreen_see_through_title">See through</string>
     <string name="lockscreen_see_through_summary">Shows the content behind your lockscreen, your data may be visible to those around you</string>
+    <string name="lockscreen_blur_radius_title">Intensity of the blur effect</string>
 
     <!-- Force DualPanel Settings -->
     <string name="force_dualpanel_title">Force dual panel settings</string>

@@ -29,6 +29,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.preference.PreferenceCategory;
+import android.preference.SlimSeekBarPreference;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
@@ -50,11 +51,13 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     private static final String PREF_LOCKSCREEN_SHORTCUTS = "lockscreen_shortcuts";
     private static final String PREF_LOCKSCREEN_TORCH = "lockscreen_torch";
     private static final String KEY_LOCKSCREEN_ROTATION = "lockscreen_rotation";
+    private static final String KEY_BLUR_RADIUS = "lockscreen_blur_radius";
 
     private CheckBoxPreference mLockscreenEightTargets;
     private CheckBoxPreference mGlowpadTorch;
     private Preference mShortcuts;
     private ListPreference mLockscreenRotation;
+    private SlimSeekBarPreference mBlurRadius;
 
     private boolean mCheckPreferences;
 
@@ -100,6 +103,11 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         mShortcuts = (Preference) findPreference(PREF_LOCKSCREEN_SHORTCUTS);
         mShortcuts.setEnabled(!mLockscreenEightTargets.isChecked());
 
+        mBlurRadius = (SlimSeekBarPreference) findPreference(KEY_BLUR_RADIUS);
+        mBlurRadius.setValue(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_BLUR_RADIUS, 14));
+        mBlurRadius.setOnPreferenceChangeListener(this);
+
         mLockscreenRotation = (ListPreference) prefs.findPreference(KEY_LOCKSCREEN_ROTATION);
         if (mLockscreenRotation != null) {
             boolean defaultVal = !DeviceUtils.isPhone(getActivity());
@@ -144,6 +152,10 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(),
                     Settings.System.LOCKSCREEN_GLOWPAD_TORCH,
                     (Boolean) objValue ? 1 : 0);
+            return true;
+        } else if (preference == mBlurRadius) {
+            int radius = ((Integer) objValue).intValue();
+            Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_BLUR_RADIUS, radius);
             return true;
         } else if (preference == mLockscreenRotation) {
             int userVal = Integer.valueOf((String) objValue);
