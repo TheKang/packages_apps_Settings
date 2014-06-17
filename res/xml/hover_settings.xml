@@ -55,4 +55,12 @@
         android:summary="@string/hover_exclude_topmost_summary"
         android:defaultValue="true" />
 
+    <com.android.settings.slim.SystemSettingListPreference
+        android:key="hover_long_fade_out_delay"
+        android:title="@string/hover_long_fadeout_title"
+        android:dialogTitle="@string/hover_long_fadeout_title"
+        android:entries="@array/hover_long_fadeout_entries"
+        android:entryValues="@array/hover_long_fadeout_values"
+        android:defaultValue="5000" />
+
 </PreferenceScreen>
