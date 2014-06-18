@@ -25,12 +25,14 @@
             android:key="pulse_enabled"
             android:title="@string/notification_pulse_title" />
 
-        <com.android.settings.slim.SystemSettingCheckBoxPreference
+        <com.android.settings.slim.SystemSettingListPreference
             android:key="screen_on_notification_led"
             android:title="@string/screen_on_notification_led_title"
-            android:summary="@string/screen_on_notification_led_summary"
+            android:dialogTitle="@string/screen_on_notification_led_title"
+            android:entries="@array/screen_on_notification_led_entries"
+            android:entryValues="@array/screen_on_notification_led_values"
             android:dependency="pulse_enabled"
-            android:defaultValue="true" />
+            android:defaultValue="1" />
 
         <com.android.settings.slim.notificationlight.ApplicationLightPreference
             android:key="default"

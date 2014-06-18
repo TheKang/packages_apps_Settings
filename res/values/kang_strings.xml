@@ -102,6 +102,10 @@
     <string name="screen_on_notification_led_title">Screen-On Notification Light</string>
     <string name="screen_on_notification_led_summary">Enable Notification Light even when screen is on.</string>
 
+    <string name="screen_on_notification_led_off">Off</string>
+    <string name="screen_on_notification_led_always">Always</string>
+    <string name="screen_on_notification_led_fullscreen">In Fullscreen-Mode</string>
+
     <!-- Text for forcing expanded notifications -->
     <string name="disable_fc_notifications_title">Diable FC Notifications</string>
     <string name="disable_fc_notifications_summary">This will hide all force close notificaitons</string>

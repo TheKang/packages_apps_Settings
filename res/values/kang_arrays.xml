@@ -212,4 +212,17 @@
         <item>2</item>
     </string-array>
 
+    <!-- Screen-On Notification Led -->
+    <string-array name="screen_on_notification_led_entries">
+        <item>@string/screen_on_notification_led_off</item>
+        <item>@string/screen_on_notification_led_always</item>
+        <item>@string/screen_on_notification_led_fullscreen</item>
+    </string-array>
+
+    <string-array name="screen_on_notification_led_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
 </resources>
