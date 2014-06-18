@@ -393,4 +393,8 @@ selecting the profile in the future.</string>
     <string name="flip_qs_tiles_title">Flip tiles</string>
     <string name="flip_qs_tiles_summary">Flips the tiles on touch</string>
 
+    <!-- Flip Tiles -->
+    <string name="power_menu_user_title">Power menu user switcher</string>
+    <string name="power_menu_user_summary">Show a list of all users in power menu</string>
+
 </resources>

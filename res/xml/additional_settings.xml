@@ -25,4 +25,10 @@
         android:summary="@string/force_dualpanel_summary"
         android:defaultValue="false" />
 
+    <com.android.settings.slim.SystemSettingCheckBoxPreference
+        android:key="power_menu_user_enabled"
+        android:title="@string/power_menu_user_title"
+        android:summary="@string/power_menu_user_summary"
+        android:defaultValue="false" />
+
 </PreferenceScreen>
