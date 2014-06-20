@@ -1795,6 +1795,8 @@
                 android:value="com.android.settings.slim.quicksettings.QuickSettingsTiles" />
         </activity>
 
+        <activity android:name=".headsup.HeadsUpSettings" />
+
         <!-- Pseudo-activity used to provide an intent-filter entry point to battery icon settings -->
         <activity android:name="Settings$BatteryIconStyleSettingsActivity"
                 android:label="@string/battery_icon_title"
