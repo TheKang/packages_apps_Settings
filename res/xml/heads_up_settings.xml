@@ -21,6 +21,12 @@
             android:title="@string/heads_up_dnd_title"
             android:key="dnd_applications_list">
 
+        <com.android.settings.slim.SystemSettingCheckBoxPreference
+                android:key="heads_up_floating_window"
+                android:title="@string/heads_up_floating_window"
+                android:defaultValue="true"
+                android:dependency="heads_up_enabled" />
+
         <SlimSeekBarPreference
                 android:key="heads_up_timeout"
                 android:title="@string/heads_up_timeout"
