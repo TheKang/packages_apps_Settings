@@ -1367,7 +1367,6 @@ public class InstalledAppDetails extends Fragment
                     .setNegativeButton(R.string.dlg_cancel, null)
                     .create();
                 case DLG_BLACKLIST:
-                    final boolean tempPeek = getOwner().getPeekState();
                     final boolean tempFloating = getOwner().getFloatingModeState();
                     final boolean tempHover = getOwner().getHoverState();
                     AlertDialog dialog = new AlertDialog.Builder(getActivity())
@@ -1385,7 +1384,6 @@ public class InstalledAppDetails extends Fragment
                                 public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                                     if (keyCode == KeyEvent.KEYCODE_BACK
                                             && event.getAction() == KeyEvent.ACTION_UP) {
-                                        getOwner().setPeekState(tempPeek);
                                         getOwner().setFloatingModeState(tempFloating);
                                         getOwner().setHoverState(tempHover);
                                         ((ViewGroup)mBlacklistDialogView.getParent())
