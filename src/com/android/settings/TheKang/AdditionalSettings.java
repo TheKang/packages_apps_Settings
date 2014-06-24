@@ -75,7 +75,7 @@ public class AdditionalSettings extends SettingsPreferenceFragment implements
     }
 
     public void UpdateSettings() {
-        mHfmDisableAds.setChecked((Settings.System.getInt(resolver,
+        mHfmDisableAds.setChecked((Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.HFM_DISABLE_ADS, 0) == 1));
     }
 

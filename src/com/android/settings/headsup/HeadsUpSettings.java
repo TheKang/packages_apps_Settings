@@ -20,6 +20,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,6 +32,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceGroup;
 import android.preference.SlimSeekBarPreference;
@@ -44,7 +46,9 @@ import com.android.settings.SettingsPreferenceFragment;
 import java.util.*;
 
 public class HeadsUpSettings extends SettingsPreferenceFragment
-        implements AdapterView.OnItemLongClickListener, Preference.OnPreferenceClickListener {
+        implements AdapterView.OnItemLongClickListener,
+                   Preference.OnPreferenceClickListener,
+                   OnPreferenceChangeListener {
 
     private static final int DIALOG_DND_APPS = 0;
     private static final int DIALOG_BLACKLIST_APPS = 1;
@@ -83,14 +87,17 @@ public class HeadsUpSettings extends SettingsPreferenceFragment
         mBlacklistPrefList = (PreferenceGroup) findPreference("blacklist_applications");
         mBlacklistPrefList.setOrderingAsAdded(false);
 
+
+        int timeout = Settings.System.getInt(getContentResolver(),
+                Settings.System.HEADS_UP_TIMEOUT, 3700);
         mHeadsUpTimeout = (SlimSeekBarPreference) findPreference(KEY_HEADS_UP_TIMEOUT);
-        mHeadsUpTimeout.setInitValue(Settings.System.getInt(getContentResolver(),
-                Settings.System.HEADS_UP_TIMEOUT, 3700));
+        mHeadsUpTimeout.setInitValue((int) (timeout / 100));
         mHeadsUpTimeout.setOnPreferenceChangeListener(this);
 
+        int fstimeout = Settings.System.getInt(getContentResolver(),
+                Settings.System.HEADS_UP_FS_TIMEOUT, 700);
         mHeadsUpFSTimeout = (SlimSeekBarPreference) findPreference(KEY_HEADS_UP_FS_TIMEOUT);
-        mHeadsUpFSTimeout.setInitValue(Settings.System.getInt(getContentResolver(),
-                Settings.System.HEADS_UP_FS_TIMEOUT, 700));
+        mHeadsUpFSTimeout.setInitValue((int) (fstimeout / 100));
         mHeadsUpFSTimeout.setOnPreferenceChangeListener(this);
 
         mDndPackages = new HashMap<String, Package>();
@@ -413,21 +420,18 @@ public class HeadsUpSettings extends SettingsPreferenceFragment
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-        if (preference == mEnabledPref) {
-            getActivity().invalidateOptionsMenu();
-        } else if (preference == mHeadsUpTimeout) {
-            int length = ((Integer) objValue).intValue();
+        if (preference == mHeadsUpTimeout) {
+            int length = Integer.parseInt((String) objValue);
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.HEADS_UP_TIMEOUT, length);
+                    Settings.System.HEADS_UP_TIMEOUT, (int) (length * 100));
+            return true;
         } else if (preference == mHeadsUpFSTimeout) {
-            int length = ((Integer) objValue).intValue();
+            int length = Integer.parseInt((String) objValue);
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.HEADS_UP_FS_TIMEOUT, length);
-        } else {
-            Preference pref = preference;
-            updateValues(pref.getKey());
+                    Settings.System.HEADS_UP_FS_TIMEOUT, (int) (length * 100));
+            return true;
         }
-        return true;
+        return false;
     }
 
     private void recreate() {
