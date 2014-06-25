@@ -34,6 +34,9 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MenuInflater;
 
 import com.android.internal.util.slim.DeviceUtils;
 
@@ -41,6 +44,8 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 import com.android.settings.util.Helpers;
+
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class RecentPanel extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -61,6 +66,8 @@ public class RecentPanel extends SettingsPreferenceFragment implements
             "recent_menu_clear_all_location";
     private static final String STOCK_RECENT_PANEL_CATEGORY =
             "stock_recent_panel_category";
+    private static final String RECENT_PANEL_BG_COLOR =
+            "recent_panel_bg_color";
     //private static final String SLIM_RECENT_PANEL_CATEGORY =
     //        "slim_recent_panel_category";
 
@@ -73,6 +80,10 @@ public class RecentPanel extends SettingsPreferenceFragment implements
     private ListPreference mRecentClearAllPosition;
     private PreferenceCategory mStockRecentPanel;
     //private PreferenceCategory mSlimRecentPanel;
+    private ColorPickerPreference mRecentPanelBgColor;
+
+    private static final int MENU_RESET = Menu.FIRST;
+    private static final int DEFAULT_BACKGROUND_COLOR = 0x00ffffff;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -122,6 +133,21 @@ public class RecentPanel extends SettingsPreferenceFragment implements
              mRecentClearAllPosition.setValue(recentClearAllPosition);
         }
         mRecentClearAllPosition.setOnPreferenceChangeListener(this);
+
+        // Recent panel background color
+        mRecentPanelBgColor =
+                (ColorPickerPreference) findPreference(RECENT_PANEL_BG_COLOR);
+        mRecentPanelBgColor.setOnPreferenceChangeListener(this);
+        final int intColor = Settings.System.getInt(getContentResolver(),
+                Settings.System.RECENT_PANEL_BG_COLOR, 0x00ffffff);
+        String hexColor = String.format("#%08x", (0x00ffffff & intColor));
+        if (hexColor.equals("#00ffffff")) {
+            mRecentPanelBgColor.setSummary("TRDS default");
+        } else {
+            mRecentPanelBgColor.setSummary(hexColor);
+        }
+        mRecentPanelBgColor.setNewPreviewColor(intColor);
+        setHasOptionsMenu(true);
 
         UpdateSettings();
     }
@@ -190,6 +216,19 @@ public class RecentPanel extends SettingsPreferenceFragment implements
                     Settings.System.CLEAR_RECENTS_BUTTON_LOCATION,
                     ((String) newValue));
             return true;
+        } else if (preference == mRecentPanelBgColor) {
+            String hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            if (hex.equals("#00ffffff")) {
+                preference.setSummary("TRDS default");
+            } else {
+                preference.setSummary(hex);
+            }
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.RECENT_PANEL_BG_COLOR,
+                    intHex);
+            return true;
         }
         return true;
     }
@@ -197,5 +236,43 @@ public class RecentPanel extends SettingsPreferenceFragment implements
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.add(0, MENU_RESET, 0, R.string.reset_default_message)
+                .setIcon(R.drawable.ic_settings_backup)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MENU_RESET:
+                resetToDefault();
+                return true;
+            default:
+               return super.onContextItemSelected(item);
+        }
+    }
+
+    private void resetToDefault() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setTitle(R.string.shortcut_action_reset);
+        alertDialog.setMessage(R.string.qs_style_reset_message);
+        alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                resetValues();
+            }
+        });
+        alertDialog.setNegativeButton(R.string.cancel, null);
+        alertDialog.create().show();
+    }
+
+    private void resetValues() {
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.RECENT_PANEL_BG_COLOR, DEFAULT_BACKGROUND_COLOR);
+        mRecentPanelBgColor.setNewPreviewColor(DEFAULT_BACKGROUND_COLOR);
+        mRecentPanelBgColor.setSummary("TRDS default");
     }
 }
