@@ -39,8 +39,10 @@
         android:fragment="com.android.settings.TheKang.RecentPanel"
         android:title="@string/recent_panel_title" />
 
-    <PreferenceScreen
+    <com.android.settings.slim.SystemSettingSwitchPreference
+        android:key="lockscreen_notifications"
         android:title="@string/lockscreen_notifications"
+        android:summary="@string/lockscreen_notifications_summary"
         android:fragment="com.android.settings.AOSPAL.LockscreenNotifications" />
 
     <PreferenceScreen

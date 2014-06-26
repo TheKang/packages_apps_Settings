@@ -1797,6 +1797,8 @@
 
         <activity android:name=".headsup.HeadsUpSettings" />
 
+        <activity android:name=".AOSPAL.LockscreenNotifications" />
+
         <!-- Pseudo-activity used to provide an intent-filter entry point to battery icon settings -->
         <activity android:name="Settings$BatteryIconStyleSettingsActivity"
                 android:label="@string/battery_icon_title"
