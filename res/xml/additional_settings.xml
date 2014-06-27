@@ -41,5 +41,4 @@
         android:title="@string/hfm_disable_ads_title"
         android:summary="@string/hfm_disable_ads_summary"
         android:persistent="false" />
-
 </PreferenceScreen>

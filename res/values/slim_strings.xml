@@ -907,7 +907,6 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="title_tile_profile">Profile</string>
     <string name="title_tile_onthego">On-The-Go</string>
     <string name="title_tile_compass">Compass</string>
-    <string name="title_tile_hover">HOVER</string>
     <string name="title_tile_camera">Camera</string>
 
     <!-- QuickSettings style options -->
@@ -1305,10 +1304,5 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="app_moving_reboot_disabled_desc">Successfully disabled application moving.\n\nThe device needs to be rebooted for the setting to take effect.</string>
     <string name="app_moving_reboot_now_button">Reboot now</string>
     <string name="app_moving_reboot_later_button">Reboot later</string>
-
-    <!--Blacklist-->
-    <string name="blacklist_button_title">Blacklist</string>
-    <string name="floating_blacklist_label">Blacklist from floating mode</string>
-    <string name="hover_blacklist_label">Blacklist from Hover</string>
 
 </resources>

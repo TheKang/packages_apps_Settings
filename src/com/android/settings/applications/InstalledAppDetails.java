@@ -70,8 +70,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -123,8 +121,8 @@ public class InstalledAppDetails extends Fragment
     private PackageInfo mPackageInfo;
     private CanBeOnSdCardChecker mCanBeOnSdCardChecker;
     private View mRootView;
-    private static View mBlacklistDialogView;
     private Button mUninstallButton;
+    private View mMoreControlButtons;
     private Button mSpecialDisableButton;
     private boolean mMoveInProgress = false;
     private boolean mUpdatedSysApp = false;
@@ -132,8 +130,6 @@ public class InstalledAppDetails extends Fragment
     private View mScreenCompatSection;
     private CheckBox mAskCompatibilityCB;
     private CheckBox mEnableCompatibilityCB;
-    private CheckBox mHoverBlacklist;
-    private CheckBox mFloatingBlacklist;
     private boolean mCanClearData = true;
     private TextView mAppVersion;
     private TextView mTotalSize;
@@ -149,7 +145,6 @@ public class InstalledAppDetails extends Fragment
     private Button mForceStopButton;
     private Button mClearDataButton;
     private Button mMoveAppButton;
-    private Button mBlacklistButton;
     private CompoundButton mNotificationSwitch;
     private Button mAppOpsButton;
 
@@ -194,7 +189,6 @@ public class InstalledAppDetails extends Fragment
     private static final int DLG_DISABLE = DLG_BASE + 7;
     private static final int DLG_DISABLE_NOTIFICATIONS = DLG_BASE + 8;
     private static final int DLG_SPECIAL_DISABLE = DLG_BASE + 9;
-    private static final int DLG_BLACKLIST = DLG_BASE + 10;
 
     // Menu identifiers
     public static final int UNINSTALL_ALL_USERS_MENU = 1;
@@ -378,9 +372,9 @@ public class InstalledAppDetails extends Fragment
                 specialDisable = handleDisableable(mSpecialDisableButton);
                 mSpecialDisableButton.setOnClickListener(this);
             }
-            mSpecialDisableButton.setVisibility(specialDisable ? View.VISIBLE : View.GONE);
+            mMoreControlButtons.setVisibility(specialDisable ? View.VISIBLE : View.GONE);
         } else {
-            mSpecialDisableButton.setVisibility(View.GONE);
+            mMoreControlButtons.setVisibility(View.GONE);
             if ((mAppEntry.info.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
                 enabled = handleDisableable(mUninstallButton);
             } else if ((mPackageInfo.applicationInfo.flags
@@ -427,28 +421,6 @@ public class InstalledAppDetails extends Fragment
             // Register listener
             mUninstallButton.setOnClickListener(this);
         }
-    }
-
-    private void initBlacklistButton() {
-        mBlacklistButton.setText(R.string.blacklist_button_title);
-
-        boolean allowedForFloating = true;
-        boolean allowedForHover = true;
-        try {
-            allowedForFloating = mNotificationManager
-                    .isPackageAllowedForFloatingMode(mAppEntry.info.packageName);
-            allowedForHover = mNotificationManager
-                    .isPackageAllowedForHover(mAppEntry.info.packageName);
-        } catch (android.os.RemoteException ex) {
-            // uh oh
-        }
-        mHoverBlacklist.setChecked(!allowedForHover);
-        mHoverBlacklist.setOnCheckedChangeListener(this);
-
-        mFloatingBlacklist.setChecked(!allowedForFloating);
-        mFloatingBlacklist.setOnCheckedChangeListener(this);
-
-        mBlacklistButton.setOnClickListener(this);
     }
 
     private void initNotificationButton() {
@@ -539,11 +511,10 @@ public class InstalledAppDetails extends Fragment
         mForceStopButton.setEnabled(false);
         
         // Get More Control button panel
-        View moreCtrlBtns = view.findViewById(R.id.more_control_buttons_panel);
-        mBlacklistButton = (Button)moreCtrlBtns.findViewById(R.id.left_button);
-        mSpecialDisableButton = (Button)moreCtrlBtns.findViewById(R.id.right_button);
-        mSpecialDisableButton.setVisibility(View.INVISIBLE);
-
+        mMoreControlButtons = view.findViewById(R.id.more_control_buttons_panel);
+        mMoreControlButtons.findViewById(R.id.left_button).setVisibility(View.INVISIBLE);
+        mSpecialDisableButton = (Button)mMoreControlButtons.findViewById(R.id.right_button);
+        mMoreControlButtons.setVisibility(View.GONE);
         // Initialize clear data and move install location buttons
         View data_buttons_panel = view.findViewById(R.id.data_buttons_panel);
         mClearDataButton = (Button) data_buttons_panel.findViewById(R.id.right_button);
@@ -564,11 +535,6 @@ public class InstalledAppDetails extends Fragment
 
         mAppOps = (AppOpsManager) getActivity().getSystemService(Context.APP_OPS_SERVICE);
         mAppOpsButton = (Button) view.findViewById(R.id.app_ops_button);
-        mBlacklistDialogView = inflater.inflate(R.layout.blacklist_dialog, null);
-        mHoverBlacklist = (CheckBox) mBlacklistDialogView.findViewById(R.id.hover_blacklist);
-
-        mBlacklistDialogView = inflater.inflate(R.layout.blacklist_dialog, null);
-        mFloatingBlacklist = (CheckBox) mBlacklistDialogView.findViewById(R.id.floating_blacklist);
 
         return view;
     }
@@ -1160,14 +1126,12 @@ public class InstalledAppDetails extends Fragment
             initMoveButton();
             initNotificationButton();
             initAppOpsButton();
-            initBlacklistButton();
         } else {
             mMoveAppButton.setText(R.string.moving);
             mMoveAppButton.setEnabled(false);
             mUninstallButton.setEnabled(false);
             mSpecialDisableButton.setEnabled(false);
             mAppOpsButton.setEnabled(false);
-            mBlacklistButton.setEnabled(false);
         }
     }
 
@@ -1209,13 +1173,13 @@ public class InstalledAppDetails extends Fragment
             mClearDataButton.setText(R.string.recompute_size);
         }
     }
-
+    
     private void showDialogInner(int id, int moveErrorCode) {
         DialogFragment newFragment = MyAlertDialogFragment.newInstance(id, moveErrorCode);
         newFragment.setTargetFragment(this, 0);
         newFragment.show(getFragmentManager(), "dialog " + id);
     }
-
+    
     public static class MyAlertDialogFragment extends DialogFragment {
 
         public static MyAlertDialogFragment newInstance(int id, int moveErrorCode) {
@@ -1366,35 +1330,6 @@ public class InstalledAppDetails extends Fragment
                     })
                     .setNegativeButton(R.string.dlg_cancel, null)
                     .create();
-                case DLG_BLACKLIST:
-                    final boolean tempFloating = getOwner().getFloatingModeState();
-                    final boolean tempHover = getOwner().getHoverState();
-                    AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                            .setTitle(getActivity().getText(R.string.blacklist_button_title))
-                            .setView(mBlacklistDialogView)
-                            .setNeutralButton(R.string.dlg_ok, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    ((ViewGroup)mBlacklistDialogView.getParent())
-                                            .removeView(mBlacklistDialogView);
-                                }
-                            })
-                            .setOnKeyListener(new DialogInterface.OnKeyListener() {
-                                @Override
-                                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                                    if (keyCode == KeyEvent.KEYCODE_BACK
-                                            && event.getAction() == KeyEvent.ACTION_UP) {
-                                        getOwner().setFloatingModeState(tempFloating);
-                                        getOwner().setHoverState(tempHover);
-                                        ((ViewGroup)mBlacklistDialogView.getParent())
-                                            .removeView(mBlacklistDialogView);
-                                    }
-                                    return false;
-                                }
-                            })
-                            .create();
-                    dialog.setCanceledOnTouchOutside(false);
-                    return dialog;
             }
             throw new IllegalArgumentException("unknown id " + id);
         }
@@ -1484,34 +1419,6 @@ public class InstalledAppDetails extends Fragment
         }
     }
 
-    private void setHoverState(boolean state) {
-        if(getHoverState() != state)
-            mHoverBlacklist.setChecked(state); // needed when Hover state is set manually
-        try {
-            mNotificationManager.setHoverBlacklistStatus(mAppEntry.info.packageName, state);
-        } catch (android.os.RemoteException ex) {
-            mHoverBlacklist.setChecked(!state); // revert
-        }
-    }
-
-    private void setFloatingModeState(boolean state) {
-        if(getFloatingModeState() != state)
-            mFloatingBlacklist.setChecked(state); // needed when Floating state is set manually
-        try {
-            mNotificationManager.setFloatingModeBlacklistStatus(mAppEntry.info.packageName, state);
-        } catch (android.os.RemoteException ex) {
-            mFloatingBlacklist.setChecked(!state); // revert
-        }
-    }
-
-    private boolean getFloatingModeState() {
-        return mFloatingBlacklist.isChecked();
-    }
-
-    private boolean getHoverState() {
-        return mHoverBlacklist.isChecked();
-    }
-
     private int getPremiumSmsPermission(String packageName) {
         try {
             if (mSmsManager != null) {
@@ -1595,8 +1502,6 @@ public class InstalledAppDetails extends Fragment
                     android.provider.Settings.ACTION_APP_OPS_DETAILS_SETTINGS,
                     Uri.parse("package:" + mAppEntry.info.packageName));
             startActivity(intent);
-        } else if (v == mBlacklistButton) {
-            showDialogInner(DLG_BLACKLIST, 0);
         }
     }
 
@@ -1616,10 +1521,7 @@ public class InstalledAppDetails extends Fragment
             } else {
                 setNotificationsEnabled(true);
             }
-        } else if (buttonView == mHoverBlacklist) {
-            setHoverState(isChecked);
-        } else if (buttonView == mFloatingBlacklist) {
-            setFloatingModeState(isChecked);
         }
     }
 }
+
