@@ -271,7 +271,7 @@
     <string name="settings_label_launcher" msgid="8344735489639482340">"Tetapan"</string>
     <string name="settings_shortcut" msgid="3936651951364030415">"Pintasan tetapan"</string>
     <string name="airplane_mode" msgid="8837269988154128601">"Mod pesawat"</string>
-    <string name="radio_controls_title" msgid="6889937359495515769">"Lagi…"</string>
+    <string name="more_title" msgid="6889937359495515769">"Lagi…"</string>
     <string name="wireless_networks_settings_title" msgid="3643009077742794212">"Wayarles &amp; rangkaian"</string>
     <string name="radio_controls_summary" msgid="1838624369870907268">"Urus Wi‑Fi, Bluetooth, mod pesawat, rangkaian mudah alih &amp; VPN"</string>
     <string name="roaming" msgid="3596055926335478572">"Perayauan data"</string>

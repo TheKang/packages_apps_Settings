@@ -269,7 +269,7 @@
     <string name="settings_label_launcher" msgid="8344735489639482340">"සැකසීම්"</string>
     <string name="settings_shortcut" msgid="3936651951364030415">"සැකසීම කෙටිමඟ"</string>
     <string name="airplane_mode" msgid="8837269988154128601">"අහස්යානා ආකාරය"</string>
-    <string name="radio_controls_title" msgid="6889937359495515769">"තව..."</string>
+    <string name="more_title" msgid="6889937359495515769">"තව..."</string>
     <string name="wireless_networks_settings_title" msgid="3643009077742794212">"රැහැන් රහිත සහ ජාලා"</string>
     <string name="radio_controls_summary" msgid="1838624369870907268">"Wi-Fi, බ්ලූටූත්, ගුවන්යානා ආකාරය, ජංගම ජාල, සහ VPN කළමනාකරණය"</string>
     <string name="roaming" msgid="3596055926335478572">"දත්ත රෝමින්"</string>

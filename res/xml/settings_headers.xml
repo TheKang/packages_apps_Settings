@@ -63,7 +63,7 @@
     <!-- Other wireless and network controls -->
     <header
         android:id="@+id/wireless_settings"
-        android:title="@string/radio_controls_title"
+        android:title="@string/more_title"
         android:breadCrumbTitle="@string/wireless_networks_settings_title"
         android:fragment="com.android.settings.WirelessSettings"
         android:icon="@drawable/empty_icon" />
@@ -105,6 +105,14 @@
         android:fragment="com.android.settings.slim.themes.ThemeSettings"
         android:icon="@drawable/ic_settings_theme"
         android:title="@string/theme_settings_title" />
+
+    <!-- More... -->
+    <header
+        android:id="@+id/advanced_options_settings"
+        android:title="@string/more_title"
+        android:breadCrumbTitle="@string/advanced_options_settings_title"
+        android:fragment="com.android.settings.slim.AdvancedSettings"
+        android:icon="@drawable/empty_icon" />
 
     <!-- DEVICE -->
     <header android:id="@+id/device_section"
@@ -267,13 +275,6 @@
         android:fragment="com.android.settings.DevelopmentSettings"
         android:icon="@drawable/ic_settings_development"
         android:title="@string/development_settings_title" />
-
-    <!-- Advanced options -->
-    <header
-        android:id="@+id/advanced_options_settings"
-        android:fragment="com.android.settings.slim.AdvancedSettings"
-        android:icon="@drawable/ic_settings_advanced"
-        android:title="@string/advanced_options_settings_title" />
 
     <!-- About Device -->
     <header

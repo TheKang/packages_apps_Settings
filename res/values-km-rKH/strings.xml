@@ -271,7 +271,7 @@
     <string name="settings_label_launcher" msgid="8344735489639482340">"ការ​កំណត់"</string>
     <string name="settings_shortcut" msgid="3936651951364030415">"កំណត់​ផ្លូវកាត់"</string>
     <string name="airplane_mode" msgid="8837269988154128601">"ពេល​ជិះ​យន្តហោះ"</string>
-    <string name="radio_controls_title" msgid="6889937359495515769">"ច្រើន​ទៀត..."</string>
+    <string name="more_title" msgid="6889937359495515769">"ច្រើន​ទៀត..."</string>
     <string name="wireless_networks_settings_title" msgid="3643009077742794212">"ឥត​ខ្សែ &amp; បណ្ដាញ"</string>
     <string name="radio_controls_summary" msgid="1838624369870907268">"គ្រប់គ្រង​វ៉ាយហ្វាយ, ប៊្លូធូស, របៀប​ពេល​ជិះ​យន្ត​ហោះ, បណ្ដាញ​ចល័ត &amp; VPNs"</string>
     <string name="roaming" msgid="3596055926335478572">"រ៉ូមីង​ទិន្នន័យ"</string>

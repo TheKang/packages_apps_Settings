@@ -291,7 +291,7 @@ public class PowerUsageDetail extends Fragment implements Button.OnClickListener
                 break;
             case ACTION_WIRELESS_SETTINGS:
                 pa.startPreferencePanel(WirelessSettings.class.getName(), null,
-                        R.string.radio_controls_title, null, null, 0);
+                        R.string.more_title, null, null, 0);
                 break;
             case ACTION_APP_DETAILS:
                 startApplicationDetailsActivity();
@@ -394,7 +394,7 @@ public class PowerUsageDetail extends Fragment implements Button.OnClickListener
                 break;
             case CELL:
                 if (mNoCoverage > 10) {
-                    addControl(R.string.radio_controls_title,
+                    addControl(R.string.more_title,
                             R.string.battery_sugg_radio,
                             ACTION_WIRELESS_SETTINGS);
                     removeHeader = false;

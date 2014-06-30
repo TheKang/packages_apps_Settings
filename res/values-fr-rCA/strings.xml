@@ -271,7 +271,7 @@
     <string name="settings_label_launcher" msgid="8344735489639482340">"Paramètres"</string>
     <string name="settings_shortcut" msgid="3936651951364030415">"Raccourci vers les paramètres"</string>
     <string name="airplane_mode" msgid="8837269988154128601">"Mode avion"</string>
-    <string name="radio_controls_title" msgid="6889937359495515769">"More…"</string>
+    <string name="more_title" msgid="6889937359495515769">"More…"</string>
     <string name="wireless_networks_settings_title" msgid="3643009077742794212">"Sans fil et réseaux"</string>
     <string name="radio_controls_summary" msgid="1838624369870907268">"Gérer le Wi-Fi, le Bluetooth, le mode Avion, les réseaux mobiles et les VPN"</string>
     <string name="roaming" msgid="3596055926335478572">"Itinérance des données"</string>

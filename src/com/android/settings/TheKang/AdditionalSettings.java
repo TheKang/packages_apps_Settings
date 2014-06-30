@@ -37,7 +37,6 @@ import android.view.Gravity;
 
 import com.android.internal.util.slim.DeviceUtils;
 
-import com.android.settings.TheKang.hfm.HfmHelpers;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;

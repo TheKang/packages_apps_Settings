@@ -271,7 +271,7 @@
     <string name="settings_label_launcher" msgid="8344735489639482340">"Nastavení"</string>
     <string name="settings_shortcut" msgid="3936651951364030415">"Zástupce nastavení"</string>
     <string name="airplane_mode" msgid="8837269988154128601">"Režim V letadle"</string>
-    <string name="radio_controls_title" msgid="6889937359495515769">"Další..."</string>
+    <string name="more_title" msgid="6889937359495515769">"Další..."</string>
     <string name="wireless_networks_settings_title" msgid="3643009077742794212">"Bezdrátová připojení a sítě"</string>
     <string name="radio_controls_summary" msgid="1838624369870907268">"Spravovat Wi-Fi, Bluetooth, režim V letadle, mobilní sítě a sítě VPN"</string>
     <string name="roaming" msgid="3596055926335478572">"Datový roaming"</string>

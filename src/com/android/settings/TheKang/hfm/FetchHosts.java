@@ -26,8 +26,10 @@ public class FetchHosts {
     public static String[] stringUrl = {
         "http://hosts-file.net/.%5Cad_servers.txt",
         "http://winhelp2002.mvps.org/hosts.txt",
-        "http://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext",
-        "http://adaway.org/hosts.txt"
+        "http://adaway.org/hosts.txt",
+        "http://sysctl.org/cameleon/hosts"
+
+
     };
 
     public static int successfulSources;
