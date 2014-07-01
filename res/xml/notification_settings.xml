@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2014 TheKang Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
+    android:title="@string/additional_settings">
+
+    <com.android.settings.slim.SystemSettingSwitchPreference
+        android:key="lockscreen_notifications"
+        android:title="@string/lockscreen_notifications"
+        android:summary="@string/lockscreen_notifications_summary"
+        android:fragment="com.android.settings.AOSPAL.LockscreenNotifications" />
+
+    <PreferenceScreen
+        android:title="@string/active_display_settings"
+        android:fragment="com.android.settings.TheKang.ActiveDisplaySettings" />
+
+    <com.android.settings.slim.SystemSettingSwitchPreference
+        android:key="heads_up_enabled"
+        android:fragment="com.android.settings.headsup.HeadsUpSettings"
+        android:title="@string/category_heads_up"
+        android:summary="@string/heads_up_summary" />
+
+</PreferenceScreen>

@@ -78,6 +78,13 @@
         android:fragment="com.android.settings.slim.InterfaceSettings"
         android:title="@string/interface_settings_title" />
 
+    <!-- Notifications -->
+    <header
+        android:id="@+id/notification_settings"
+        android:icon="@drawable/ic_settings_notifications"
+        android:title="@string/notification_category"
+        android:fragment="com.android.settings.TheKang.NotificationSettings" />
+
     <!-- Navigation -->
     <header
         android:id="@+id/navigation_settings"
