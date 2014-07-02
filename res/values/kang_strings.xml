@@ -117,12 +117,10 @@
     <string name="suppress_noservice_notification_summary">Don\'t show the network selection \'no service\' notification</string>
 
     <!-- Active Display Notifications -->
-    <string name="active_display_settings">ActiveDisplay</string>
+    <string name="active_display_settings_title">ActiveDisplay</string>
+    <string name="active_display_settings_summary">Wake device on incoming notifications</string>
     <string name="ad_settings_title">Active display</string>
     <string name="ad_settings_summary">Change active display settings</string>
-    <string name="ad_enable_title">Enable</string>
-    <string name="ad_enable_summary_on">Active display enabled</string>
-    <string name="ad_enable_summary_off">Active display disabled</string>
     <string name="ad_bypass_title">Bypass mode</string>
     <string name="ad_bypass_summary">Pocket mode will launch the lockscreen when no notifications exist</string>
     <string name="ad_text_title">Notification text</string>

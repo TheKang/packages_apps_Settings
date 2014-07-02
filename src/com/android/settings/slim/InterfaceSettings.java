@@ -50,7 +50,6 @@ import android.widget.Toast;
 import com.android.internal.util.slim.DensityUtils;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.slim.SystemSettingSwitchPreference;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -73,8 +72,6 @@ public class InterfaceSettings extends SettingsPreferenceFragment {
 
     private static Preference mLcdDensity;
 
-    private SystemSettingSwitchPreference mLockscreenNotifications;
-
     private static int mMaxDensity = DisplayMetrics.getDeviceDensity();
     private static int mDefaultDensity = DensityUtils.getSlimDefaultDensity();
     private static int mMinDensity = DensityUtils.getMinimumDensity();
@@ -86,9 +83,6 @@ public class InterfaceSettings extends SettingsPreferenceFragment {
         super.onCreate(savedInstanceState);
 
         mActivity = getActivity();
-
-        mLockscreenNotifications = (SystemSettingSwitchPreference)
-                findPreference(Settings.System.LOCKSCREEN_NOTIFICATIONS);
 
         updateSettings();
     }
@@ -107,16 +101,6 @@ public class InterfaceSettings extends SettingsPreferenceFragment {
                 return true;
             }
         });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        boolean lockscreenNotificationsEnabled = Settings.System.getInt(
-                getActivity().getContentResolver(),
-                Settings.System.LOCKSCREEN_NOTIFICATIONS, 1) == 1;
-        mLockscreenNotifications.setChecked(lockscreenNotificationsEnabled);
     }
 
     private static void setDensity(int density) {

@@ -1786,6 +1786,8 @@
 
         <activity android:name=".AOSPAL.LockscreenNotifications" />
 
+        <activity android:name=".TheKang.ActiveDisplaySettings" />
+
         <activity android:name=".TheKang.NotificationSettings" />
 
 

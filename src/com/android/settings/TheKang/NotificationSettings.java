@@ -41,17 +41,28 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 import com.android.settings.util.Helpers;
+import com.android.settings.slim.SystemSettingSwitchPreference;
 
 public class NotificationSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
+
+    private SystemSettingSwitchPreference mLockscreenNotifications;
+    private SystemSettingSwitchPreference mActiveDisplay;
+    private SystemSettingSwitchPreference mHeadsUp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.notification_settings);
-
         PreferenceScreen prefSet = getPreferenceScreen();
+
+        mLockscreenNotifications = (SystemSettingSwitchPreference)
+                findPreference(Settings.System.LOCKSCREEN_NOTIFICATIONS);
+        mActiveDisplay = (SystemSettingSwitchPreference)
+                findPreference(Settings.System.ENABLE_ACTIVE_DISPLAY);
+        mHeadsUp = (SystemSettingSwitchPreference)
+                findPreference(Settings.System.HEADS_UP_NOTIFICATION);
 
         UpdateSettings();
     }
@@ -59,6 +70,7 @@ public class NotificationSettings extends SettingsPreferenceFragment implements
     @Override
     public void onResume() {
         super.onResume();
+
         UpdateSettings();
     }
 
@@ -68,6 +80,20 @@ public class NotificationSettings extends SettingsPreferenceFragment implements
     }
 
     public void UpdateSettings() {
+        boolean lockscreenNotificationsEnabled = Settings.System.getInt(
+                getActivity().getContentResolver(),
+                Settings.System.LOCKSCREEN_NOTIFICATIONS, 1) == 1;
+        mLockscreenNotifications.setChecked(lockscreenNotificationsEnabled);
+
+        boolean activeDisplayEnabled = Settings.System.getInt(
+                getActivity().getContentResolver(),
+                Settings.System.ENABLE_ACTIVE_DISPLAY, 0) == 1;
+        mActiveDisplay.setChecked(activeDisplayEnabled);
+
+        boolean headsUpEnabled = Settings.System.getInt(
+                getActivity().getContentResolver(),
+                Settings.System.HEADS_UP_NOTIFICATION, 1) == 1;
+        mHeadsUp.setChecked(headsUpEnabled);
     }
 
     @Override

@@ -16,6 +16,7 @@
 
 package com.android.settings.TheKang;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -24,14 +25,24 @@ import android.os.PowerManager;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceActivity;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 import android.preference.SlimSeekBarPreference;
-import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.text.format.DateFormat;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Switch;
+import android.widget.TextView;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.AOSPAL.AppMultiSelectListPreference;
@@ -48,7 +59,6 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
         OnPreferenceChangeListener {
     private static final String TAG = "ActiveDisplaySettings";
 
-    private static final String KEY_ENABLED = "ad_enable";
     private static final String KEY_ANNOYING = "ad_annoying";
     private static final String KEY_BYPASS_CONTENT = "ad_bypass";
     private static final String KEY_POCKET_MODE = "ad_pocket_mode";
@@ -65,7 +75,6 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
     private ContentResolver mResolver;
     private Context mContext;
 
-    private SwitchPreference mEnabledPref;
     private AppMultiSelectListPreference mExcludedAppsPref;
     private AppMultiSelectListPreference mPrivacyAppsPref;
     private CheckBoxPreference mBypassPref;
@@ -79,6 +88,9 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
     private ListPreference mProximityThreshold;
     private ListPreference mRedisplayPref;
 
+    private Switch mActionBarSwitch;
+    private ActiveDisplayEnabler mActiveDisplayEnabler;
+
     private int mMinimumBacklight;
     private int mMaximumBacklight;
 
@@ -91,11 +103,6 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
         mContext = getActivity().getApplicationContext();
         mResolver = mContext.getContentResolver();
         PreferenceScreen prefSet = getPreferenceScreen();
-
-        mEnabledPref = (SwitchPreference) prefSet.findPreference(KEY_ENABLED);
-        mEnabledPref.setChecked((Settings.System.getInt(mResolver,
-                Settings.System.ENABLE_ACTIVE_DISPLAY, 0) == 1));
-        mEnabledPref.setOnPreferenceChangeListener(this);
 
         mBypassPref = (CheckBoxPreference) prefSet.findPreference(KEY_BYPASS_CONTENT);
         mPocketModePref = (ListPreference) prefSet.findPreference(KEY_POCKET_MODE);
@@ -182,6 +189,56 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
         mDisplayTimeout.setValue(String.valueOf(timeout));
         mDisplayTimeout.setSummary(mDisplayTimeout.getEntry());
         mDisplayTimeout.setOnPreferenceChangeListener(this);
+
+        update();
+    }
+
+    private void update() {
+        boolean enabled = Settings.System.getInt(
+                getActivity().getContentResolver(), Settings.System.ENABLE_ACTIVE_DISPLAY, 0) == 1;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle icicle) {
+        Activity activity = getActivity();
+        //Switch
+        mActionBarSwitch = new Switch(activity);
+
+        if (activity instanceof PreferenceActivity) {
+            PreferenceActivity preferenceActivity = (PreferenceActivity) activity;
+            if (preferenceActivity.onIsHidingHeaders() || !preferenceActivity.onIsMultiPane()) {
+                final int padding = activity.getResources().getDimensionPixelSize(
+                        R.dimen.action_bar_switch_padding);
+                mActionBarSwitch.setPaddingRelative(0, 0, padding, 0);
+                activity.getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM,
+                        ActionBar.DISPLAY_SHOW_CUSTOM);
+                activity.getActionBar().setCustomView(mActionBarSwitch, new ActionBar.LayoutParams(
+                        ActionBar.LayoutParams.WRAP_CONTENT,
+                        ActionBar.LayoutParams.WRAP_CONTENT,
+                        Gravity.CENTER_VERTICAL | Gravity.END));
+            }
+        }
+
+        mActiveDisplayEnabler = new ActiveDisplayEnabler(activity, mActionBarSwitch);
+        // After confirming PreferenceScreen is available, we call super.
+        super.onActivityCreated(icicle);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mActiveDisplayEnabler != null) {
+            mActiveDisplayEnabler.resume();
+        }
+        update();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mActiveDisplayEnabler != null) {
+            mActiveDisplayEnabler.pause();
+        }
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -191,11 +248,6 @@ public class ActiveDisplaySettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(mResolver,
                 Settings.System.ACTIVE_DISPLAY_REDISPLAY, val);
             mRedisplayPref.setSummary(mRedisplayPref.getEntries()[index]);
-            return true;
-        } else if (preference == mEnabledPref) {
-            Settings.System.putInt(mResolver,
-                    Settings.System.ENABLE_ACTIVE_DISPLAY,
-                    ((Boolean) newValue).booleanValue() ? 1 : 0);
             return true;
         } else if (preference == mPocketModePref) {
             int val = Integer.parseInt((String) newValue);

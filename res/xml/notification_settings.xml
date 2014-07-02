@@ -25,8 +25,10 @@
         android:summary="@string/lockscreen_notifications_summary"
         android:fragment="com.android.settings.AOSPAL.LockscreenNotifications" />
 
-    <PreferenceScreen
-        android:title="@string/active_display_settings"
+    <com.android.settings.slim.SystemSettingSwitchPreference
+        android:key="enable_active_display"
+        android:title="@string/active_display_settings_title"
+        android:summary="@string/active_display_settings_summary"
         android:fragment="com.android.settings.TheKang.ActiveDisplaySettings" />
 
     <com.android.settings.slim.SystemSettingSwitchPreference
