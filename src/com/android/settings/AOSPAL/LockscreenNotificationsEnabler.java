@@ -44,7 +44,7 @@ public class LockscreenNotificationsEnabler implements CompoundButton.OnCheckedC
 
     public void resume() {
         mContext.getContentResolver().registerContentObserver(
-                Settings.System.getUriFor(Settings.System.HEADS_UP_NOTIFICATION),
+                Settings.System.getUriFor(Settings.System.LOCKSCREEN_NOTIFICATIONS),
                 true, mSettingsObserver);
         mSwitch.setOnCheckedChangeListener(this);
         setSwitchState();
