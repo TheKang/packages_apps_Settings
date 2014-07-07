@@ -18,8 +18,10 @@ package com.android.settings.slim;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.UserHandle;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -67,8 +69,6 @@ public class QuietHoursTimes extends SettingsPreferenceFragment implements
     private TimeRangePreference mThurs;
     private TimeRangePreference mFri;
     private TimeRangePreference mSat;
-
-    private Handler mHandler = new Handler();
 
     private Context mContext;
 
@@ -142,16 +142,9 @@ public class QuietHoursTimes extends SettingsPreferenceFragment implements
 
             mQuietHoursTimeRange.setTimeRange(startTimesSingle, endTimesSingle);
             setDailyRanges();
+            setEnabledPrefs();
         }
     }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        setEnabledPrefs();
-    }
-
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         ContentResolver resolver = mContext.getContentResolver();
         if (preference == mDailyCheck) {
@@ -175,7 +168,6 @@ public class QuietHoursTimes extends SettingsPreferenceFragment implements
                         wifi.isConnected() ? 2 : 1);
             }
             mRequireWifi.setChecked(requireWifi);
-            delaySummary();
             QuietHoursController.getInstance(mContext).checkModes();
         } else if (preference == mRequireCharging) {
             final boolean requireCharging = (Boolean) newValue;
@@ -183,13 +175,16 @@ public class QuietHoursTimes extends SettingsPreferenceFragment implements
                 Settings.System.putInt(resolver,
                         Settings.System.QUIET_HOURS_REQUIRE_CHARGING, 0);
             } else {
+                IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+                Intent batteryStatus = mContext.registerReceiver(null, ifilter);
+                final int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+                final boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                        status == BatteryManager.BATTERY_STATUS_FULL;
+
                 Settings.System.putInt(resolver,
-                        Settings.System.QUIET_HOURS_REQUIRE_CHARGING, 1);
-                Toast.makeText(getActivity(), R.string.quiet_hours_charge_warning,
-                        Toast.LENGTH_LONG).show();
+                        Settings.System.QUIET_HOURS_REQUIRE_CHARGING, isCharging ? 2 : 1);
             }
             mRequireCharging.setChecked(requireCharging);
-            delaySummary();
             QuietHoursController.getInstance(mContext).checkModes();
         } else if (preference == mQuietHoursTimeRange) {
             Settings.System.putInt(resolver, Settings.System.QUIET_HOURS_START,
@@ -247,7 +242,6 @@ public class QuietHoursTimes extends SettingsPreferenceFragment implements
         mThurs.setEnabled(enabled);
         mFri.setEnabled(enabled);
         mSat.setEnabled(enabled);
-        delaySummary();
     }
 
     private void updateController() {
@@ -311,7 +305,6 @@ public class QuietHoursTimes extends SettingsPreferenceFragment implements
         }
 
         setDailyRanges();
-        delaySummary();
         updateController();
     }
 
@@ -323,15 +316,7 @@ public class QuietHoursTimes extends SettingsPreferenceFragment implements
         mThurs.setTimeRange(mQuietHoursStart[4], mQuietHoursEnd[4]);
         mFri.setTimeRange(mQuietHoursStart[5], mQuietHoursEnd[5]);
         mSat.setTimeRange(mQuietHoursStart[6], mQuietHoursEnd[6]);
-    }
-
-    private void delaySummary() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
                 updateSummaries();
-            }
-        }, 100);
     }
 
     private void updateSummaries() {

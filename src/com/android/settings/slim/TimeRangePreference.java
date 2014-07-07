@@ -46,6 +46,8 @@ public class TimeRangePreference extends Preference implements
     private TextView mEndTimeText;
     private int mStartTime;
     private int mEndTime;
+    private String mStartTitle;
+    private String mEndTitle;
 
     /**
      * @param context
@@ -102,6 +104,12 @@ public class TimeRangePreference extends Preference implements
         if (mEndTimeText != null) {
             mEndTimeText.setText(returnTime(mEndTime));
         }
+        if (mEndTitle != null && mEndTimeTitle != null) {
+            mEndTimeTitle.setText(mEndTitle);
+        }
+        if (mStartTitle != null && mStartTimeTitle != null) {
+            mStartTimeTitle.setText(mStartTitle);
+        }
     }
 
     public void setStartTime(int time) {
@@ -117,15 +125,16 @@ public class TimeRangePreference extends Preference implements
     public void setAppendedText(String firstDay, String secondDay) {
         if (firstDay != null && secondDay != null) {
             Context context = getContext();
+            mStartTitle = context.getResources().getString(
+                        R.string.start_time_title) + " - " + firstDay;
+            mEndTitle = context.getResources().getString(
+                        R.string.end_time_title) + " - " + secondDay;
+
             if (mStartTimeTitle != null) {
-                mStartTimeTitle.setText(
-                        context.getResources().getString(
-                        R.string.start_time_title) + " - " + firstDay);
+                mStartTimeTitle.setText(mStartTitle);
             }
             if (mEndTimeTitle != null) {
-                mEndTimeTitle.setText(
-                        context.getResources().getString(
-                        R.string.end_time_title) + " - " + secondDay);
+                mEndTimeTitle.setText(mEndTitle);
             }
         }
     }

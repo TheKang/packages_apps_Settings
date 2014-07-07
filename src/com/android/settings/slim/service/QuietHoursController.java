@@ -55,6 +55,7 @@ public class QuietHoursController {
 
     private static final int FULL_DAY = 1440; // 1440 minutes in a day
     private static final int TIME_LIMIT = 30; // 30 minute bypass limit
+    private static final int ALARM = 13378;
     private static final int SUNDAY = 0;
     private static final int MONDAY = 1;
     private static final int TUESDAY = 2;
@@ -75,7 +76,6 @@ public class QuietHoursController {
     private AlarmManager mAlarmManager;
 
     private Intent mServiceTriggerIntent;
-    private PendingIntent mScheduleIntent;
 
     private int mQuietHoursMode;
     private int[] mQuietHoursStart = new int[7];
@@ -129,10 +129,6 @@ public class QuietHoursController {
         mAlarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
 
         mServiceTriggerIntent = new Intent(mContext, SmsCallService.class);
-        Intent intent = new Intent(mContext, AlarmReceiver.class);
-        intent.setAction(SCHEDULE_SERVICE_COMMAND);
-        mScheduleIntent = PendingIntent.getBroadcast(
-                mContext, 30, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         updateSharedPreferences();
         updateTimePrefs();
         checkModes();
@@ -503,6 +499,9 @@ public class QuietHoursController {
         if (inQuietHours) {
             // Check if enabled requirements are true before enabling
             checkRequirements();
+        } else {
+            // Disable any active settings
+            toggleQuietHoursEntries(false);
         }
     }
 
@@ -527,6 +526,13 @@ public class QuietHoursController {
                 mQuietHoursMode, UserHandle.USER_CURRENT_OR_SELF);
     }
 
+    private PendingIntent getScheduler() {
+        Intent intent = new Intent();
+        intent.setAction(SCHEDULE_SERVICE_COMMAND);
+        PendingIntent scheduled = PendingIntent.getBroadcast(
+                mContext, ALARM, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        return scheduled;
+    }
     /*
      * Called when:
      * QuietHours TimeChanged
@@ -540,7 +546,7 @@ public class QuietHoursController {
                 Settings.System.QUIET_HOURS_ENABLED, 0,
                 UserHandle.USER_CURRENT_OR_SELF);
 
-        mAlarmManager.cancel(mScheduleIntent);
+        mAlarmManager.cancel(getScheduler());
 
         // Allows the scheduler to create the next needed
         // time of update without modifying current modes
@@ -616,7 +622,7 @@ public class QuietHoursController {
             }
             calendar.add(Calendar.MINUTE, FULL_DAY);
             mAlarmManager.set(AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(), mScheduleIntent);
+                    calendar.getTimeInMillis(), getScheduler());
             return;
         }
 
@@ -632,7 +638,6 @@ public class QuietHoursController {
         // Current time in minutes
         final int currentMinutes =
                 calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE);
-
         if (mQuietHoursEnd[lastIndex] < mQuietHoursStart[lastIndex]) {
             // End time of yesterday is somtime today
             if (currentMinutes <= mQuietHoursEnd[lastIndex]) {
@@ -684,11 +689,9 @@ public class QuietHoursController {
             if (inQuietHours) {
                 checkRequirements();
             } else {
-                if (mQuietHoursMode != 1) {
                     Settings.System.putIntForUser(mContext.getContentResolver(),
                             Settings.System.QUIET_HOURS_ENABLED,
                             1, UserHandle.USER_CURRENT_OR_SELF);
-                }
                 toggleQuietHoursEntries(false);
             }
         }
@@ -697,12 +700,10 @@ public class QuietHoursController {
         calendar.add(Calendar.SECOND, -calendar.get(Calendar.SECOND));
         calendar.add(Calendar.MILLISECOND, -calendar.get(Calendar.MILLISECOND));
 
-        // Add two seconds - we want to be IN quiet hours or OUT of
-        // quiet hours and avoid accidental matches due to inconsistencies
-        calendar.add(Calendar.SECOND, 2);
+        calendar.add(Calendar.SECOND, 1);
         if (nextSchedule >= 0) {
             calendar.add(Calendar.MINUTE, nextSchedule);
-            mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), mScheduleIntent);
+            mAlarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), getScheduler());
         }
     }
 
