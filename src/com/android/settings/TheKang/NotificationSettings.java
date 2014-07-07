@@ -48,7 +48,7 @@ public class NotificationSettings extends SettingsPreferenceFragment implements
 
     private SystemSettingSwitchPreference mLockscreenNotifications;
     private SystemSettingSwitchPreference mActiveDisplay;
-    private SystemSettingSwitchPreference mHeadsUp;
+//    private SystemSettingSwitchPreference mHeadsUp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,8 +61,8 @@ public class NotificationSettings extends SettingsPreferenceFragment implements
                 findPreference(Settings.System.LOCKSCREEN_NOTIFICATIONS);
         mActiveDisplay = (SystemSettingSwitchPreference)
                 findPreference(Settings.System.ENABLE_ACTIVE_DISPLAY);
-        mHeadsUp = (SystemSettingSwitchPreference)
-                findPreference(Settings.System.HEADS_UP_NOTIFICATION);
+//        mHeadsUp = (SystemSettingSwitchPreference)
+//                findPreference(Settings.System.HEADS_UP_NOTIFICATION);
 
         UpdateSettings();
     }
@@ -90,10 +90,10 @@ public class NotificationSettings extends SettingsPreferenceFragment implements
                 Settings.System.ENABLE_ACTIVE_DISPLAY, 0) == 1;
         mActiveDisplay.setChecked(activeDisplayEnabled);
 
-        boolean headsUpEnabled = Settings.System.getInt(
-                getActivity().getContentResolver(),
-                Settings.System.HEADS_UP_NOTIFICATION, 1) == 1;
-        mHeadsUp.setChecked(headsUpEnabled);
+//        boolean headsUpEnabled = Settings.System.getInt(
+//                getActivity().getContentResolver(),
+//                Settings.System.HEADS_UP_NOTIFICATION, 1) == 1;
+//        mHeadsUp.setChecked(headsUpEnabled);
     }
 
     @Override

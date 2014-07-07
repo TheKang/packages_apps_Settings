@@ -31,10 +31,4 @@
         android:summary="@string/active_display_settings_summary"
         android:fragment="com.android.settings.TheKang.ActiveDisplaySettings" />
 
-    <com.android.settings.slim.SystemSettingSwitchPreference
-        android:key="heads_up_enabled"
-        android:fragment="com.android.settings.headsup.HeadsUpSettings"
-        android:title="@string/category_heads_up"
-        android:summary="@string/heads_up_summary" />
-
 </PreferenceScreen>
