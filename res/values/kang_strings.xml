@@ -388,8 +388,6 @@ selecting the profile in the future.</string>
     <!-- Wi-Fi settings screen, setting summary for setting the Wi-Fi priority-->
     <string name="wifi_setting_priority_summary">Specify the priority of the Wi-Fi networks</string>
 
-    <string name="clients">CLIENTS</string>
-
     <!-- Heads Up -->
     <string name="category_heads_up">HeadsUp</string>
     <string name="heads_up_summary">Pop-up notifications in fullscreen apps</string>
