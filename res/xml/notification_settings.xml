@@ -31,4 +31,8 @@
         android:summary="@string/active_display_settings_summary"
         android:fragment="com.android.settings.TheKang.ActiveDisplaySettings" />
 
+    <PreferenceScreen
+        android:title="@string/block_notifications_title"
+        android:fragment="com.android.settings.cyanogenmod.SpamList" />
+
 </PreferenceScreen>
