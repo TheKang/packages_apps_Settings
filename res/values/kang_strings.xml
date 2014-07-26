@@ -437,4 +437,6 @@ selecting the profile in the future.</string>
     <string name="no_filters_title">No filters set</string>
     <string name="app_ops_ignored_count">Denied <xliff:g id="count" example="2 times">%s</xliff:g></string>
 
+    <string name="heads_up_floating_window_title">Launch floating window</string>
+    <string name="heads_up_floating_window_summary">Open heads up in floating window</string>
 </resources>
