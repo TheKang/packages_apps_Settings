@@ -42,6 +42,8 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 import com.android.settings.util.Helpers;
 
+import net.margaritov.preference.colorpicker.ColorPickerPreference;
+
 public class RecentPanel extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
@@ -55,6 +57,8 @@ public class RecentPanel extends SettingsPreferenceFragment implements
             "recent_panel_scale";
     private static final String RECENT_PANEL_EXPANDED_MODE =
             "recent_panel_expanded_mode";
+    private static final String RECENT_PANEL_BG_COLOR =
+            "recent_panel_bg_color";
     private static final String RECENT_MENU_CLEAR_ALL =
             "recent_menu_clear_all";
     private static final String RECENT_MENU_CLEAR_ALL_LOCATION =
@@ -69,6 +73,7 @@ public class RecentPanel extends SettingsPreferenceFragment implements
     private CheckBoxPreference mRecentPanelLeftyMode;
     private ListPreference mRecentPanelScale;
     private ListPreference mRecentPanelExpandedMode;
+    private ColorPickerPreference mRecentPanelBgColor;
     private CheckBoxPreference mRecentClearAll;
     private ListPreference mRecentClearAllPosition;
     private PreferenceCategory mStockRecentPanel;
@@ -110,6 +115,13 @@ public class RecentPanel extends SettingsPreferenceFragment implements
         mRecentPanelExpandedMode =
                 (ListPreference) findPreference(RECENT_PANEL_EXPANDED_MODE);
         mRecentPanelExpandedMode.setOnPreferenceChangeListener(this);
+
+        // Recent panel background color
+        int intColor;
+        String hexColor;
+        mRecentPanelBgColor =
+                (ColorPickerPreference) findPreference(RECENT_PANEL_BG_COLOR);
+        mRecentPanelBgColor.setOnPreferenceChangeListener(this);
 
         mRecentClearAll = (CheckBoxPreference) findPreference(RECENT_MENU_CLEAR_ALL);
         mRecentClearAll.setChecked(Settings.System.getInt(getContentResolver(),
@@ -162,6 +174,15 @@ public class RecentPanel extends SettingsPreferenceFragment implements
             int value = Integer.parseInt((String) newValue);
             Settings.System.putInt(getContentResolver(),
                     Settings.System.RECENT_PANEL_EXPANDED_MODE, value);
+            return true;
+        } else if (preference == mRecentPanelBgColor) {
+            String hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.RECENT_PANEL_BG_COLOR,
+                    intHex);
             return true;
         } else if (preference == mRecentPanelLeftyMode) {
             Settings.System.putInt(getContentResolver(),
