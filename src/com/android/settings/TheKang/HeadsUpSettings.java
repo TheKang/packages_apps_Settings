@@ -23,6 +23,7 @@ import android.app.DialogFragment;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.os.Bundle;
@@ -74,6 +75,8 @@ public class HeadsUpSettings extends SettingsPreferenceFragment implements
 
         addPreferencesFromResource(R.xml.headsup_settings);
         PreferenceScreen prefSet = getPreferenceScreen();
+
+        PackageManager pm = getPackageManager();
 
         mHeadsUpExpanded = (CheckBoxPreference) findPreference(PREF_HEADS_UP_EXPANDED);
         mHeadsUpExpanded.setChecked(Settings.System.getIntForUser(getContentResolver(),
@@ -156,6 +159,7 @@ public class HeadsUpSettings extends SettingsPreferenceFragment implements
                     (Boolean) newValue ? 1 : 0, UserHandle.USER_CURRENT);
             return true;
         }
+        return true;
     }
 
     private void updateHeadsUpSnoozeTimeSummary(int value) {

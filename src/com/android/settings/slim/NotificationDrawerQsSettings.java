@@ -93,9 +93,6 @@ public class NotificationDrawerQsSettings extends SettingsPreferenceFragment
         mHideLabels.setOnPreferenceChangeListener(this);
         updateHideNotificationLabelsSummary(hideCarrier);
 
-        PackageManager pm = getPackageManager();
-        boolean isMobileData = pm.hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
-
         if (!DeviceUtils.isPhone(getActivity())) {
             // Nothing for tablets and large screen devices which doesn't show
             // information in notification drawer.....remove option
