@@ -437,9 +437,6 @@ selecting the profile in the future.</string>
     <string name="no_filters_title">No filters set</string>
     <string name="app_ops_ignored_count">Denied <xliff:g id="count" example="2 times">%s</xliff:g></string>
 
-    <string name="heads_up_floating_window_title">Launch floating window</string>
-    <string name="heads_up_floating_window_summary">Open heads up in floating window</string>
-
     <!-- Partition Info -->
     <string name="partition_info_title">Partition info</string>
     <string name="partition_info_system">/system</string>
@@ -448,5 +445,4 @@ selecting the profile in the future.</string>
     <string name="partition_info_sdcard">/sdcard (FAT)</string>
     <string name="partition_info_sdext">/sd-ext (EXT)</string>
     <string name="partition_info_used_of">/</string>
-
 </resources>

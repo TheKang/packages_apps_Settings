@@ -54,8 +54,6 @@ public class HeadsUpSettings extends SettingsPreferenceFragment implements
 
     private static final String PREF_HEADS_UP_EXPANDED =
             "heads_up_expanded";
-    private static final String PREF_HEADS_UP_FLOATING_WINDOW =
-            "heads_up_floating_window";
     private static final String PREF_HEADS_UP_SNOOZE_TIME =
             "heads_up_snooze_time";
     private static final String PREF_HEADS_UP_TIME_OUT =
@@ -68,7 +66,6 @@ public class HeadsUpSettings extends SettingsPreferenceFragment implements
     ListPreference mHeadsUpSnoozeTime;
     ListPreference mHeadsUpTimeOut;
     CheckBoxPreference mHeadsUpExpanded;
-    CheckBoxPreference mHeadsUpFloatingWindow;
     CheckBoxPreference mHeadsUpShowUpdates;
     CheckBoxPreference mHeadsUpGravity;
 
@@ -85,11 +82,6 @@ public class HeadsUpSettings extends SettingsPreferenceFragment implements
         mHeadsUpExpanded.setChecked(Settings.System.getIntForUser(getContentResolver(),
                 Settings.System.HEADS_UP_EXPANDED, 0, UserHandle.USER_CURRENT) == 1);
         mHeadsUpExpanded.setOnPreferenceChangeListener(this);
-
-        mHeadsUpFloatingWindow = (CheckBoxPreference) findPreference(PREF_HEADS_UP_FLOATING_WINDOW);
-        mHeadsUpFloatingWindow.setChecked(Settings.System.getIntForUser(getContentResolver(),
-                Settings.System.HEADS_UP_FLOATING_WINDOW, 0, UserHandle.USER_CURRENT) == 1);
-        mHeadsUpFloatingWindow.setOnPreferenceChangeListener(this);
 
         mHeadsUpShowUpdates = (CheckBoxPreference) findPreference(PREF_HEADS_UP_SHOW_UPDATE);
         mHeadsUpShowUpdates.setChecked(Settings.System.getIntForUser(getContentResolver(),
@@ -154,11 +146,6 @@ public class HeadsUpSettings extends SettingsPreferenceFragment implements
         } else if (preference == mHeadsUpExpanded) {
             Settings.System.putIntForUser(getContentResolver(),
                     Settings.System.HEADS_UP_EXPANDED,
-                    (Boolean) newValue ? 1 : 0, UserHandle.USER_CURRENT);
-            return true;
-        } else if (preference == mHeadsUpFloatingWindow) {
-            Settings.System.putIntForUser(getContentResolver(),
-                    Settings.System.HEADS_UP_FLOATING_WINDOW,
                     (Boolean) newValue ? 1 : 0, UserHandle.USER_CURRENT);
             return true;
         } else if (preference == mHeadsUpShowUpdates) {
