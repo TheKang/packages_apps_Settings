@@ -1230,7 +1230,6 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="recent_panel_expanded_mode_auto">Auto (default)</string>
     <string name="recent_panel_expanded_mode_always">Always</string>
     <string name="recent_panel_expanded_mode_never">Never</string>
-    <string name="recent_panel_bg_color_title">Background color</string>
 
     <!-- ATTENTION: RTL languages need to replace left with right -->
     <string name="recent_panel_lefty_mode_title">Show on the left edge</string>
