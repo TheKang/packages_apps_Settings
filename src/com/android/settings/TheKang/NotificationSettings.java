@@ -30,6 +30,7 @@ import android.os.UserHandle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
@@ -48,7 +49,6 @@ public class NotificationSettings extends SettingsPreferenceFragment implements
 
     private SystemSettingSwitchPreference mLockscreenNotifications;
     private SystemSettingSwitchPreference mActiveDisplay;
-//    private SystemSettingSwitchPreference mHeadsUp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,8 +61,6 @@ public class NotificationSettings extends SettingsPreferenceFragment implements
                 findPreference(Settings.System.LOCKSCREEN_NOTIFICATIONS);
         mActiveDisplay = (SystemSettingSwitchPreference)
                 findPreference(Settings.System.ENABLE_ACTIVE_DISPLAY);
-//        mHeadsUp = (SystemSettingSwitchPreference)
-//                findPreference(Settings.System.HEADS_UP_NOTIFICATION);
 
         UpdateSettings();
     }
@@ -90,32 +88,15 @@ public class NotificationSettings extends SettingsPreferenceFragment implements
                 Settings.System.ENABLE_ACTIVE_DISPLAY, 0) == 1;
         mActiveDisplay.setChecked(activeDisplayEnabled);
 
-//        boolean headsUpEnabled = Settings.System.getInt(
-//                getActivity().getContentResolver(),
-//                Settings.System.HEADS_UP_NOTIFICATION, 1) == 1;
-//        mHeadsUp.setChecked(headsUpEnabled);
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        //if (preference == mDummy) {
-        //    int value = Integer.parseInt((String) newValue);
-        //    Settings.System.putInt(getContentResolver(),
-        //            Settings.System.RECENT_PANEL_SCALE_FACTOR, value);
-        //    return true;
-        //}
         return true;
     }
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        //if (preference == mHfmDisableAds) {
-        //    boolean checked = ((CheckBoxPreference)preference).isChecked();
-        //    Settings.System.putInt(getActivity().getContentResolver(),
-        //            Settings.System.HFM_DISABLE_ADS, checked ? 1:0);
-        //    HfmHelpers.checkStatus(getActivity());
-        //    return true;
-        //}
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 }
