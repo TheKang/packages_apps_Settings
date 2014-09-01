@@ -59,6 +59,7 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -356,10 +357,12 @@ public class AccessibilitySettings extends SettingsPreferenceFragment implements
         mToggleSpeakPasswordPreference =
                 (CheckBoxPreference) findPreference(TOGGLE_SPEAK_PASSWORD_PREFERENCE);
 
-        //Shake sensitivity
+        // Shake sensitivity
         mShakeSensitivity =
                 (ListPreference) findPreference(SHAKE_SENSITIVITY);
         mShakeSensitivity.setOnPreferenceChangeListener(this);
+
+        // Recent panel background color
 
         // Long press timeout.
         mSelectLongPressTimeoutPreference =
