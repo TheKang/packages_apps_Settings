@@ -326,6 +326,7 @@
     <string name="title_tile_wifiap">Точка доступа Wi-Fi</string>
     <string name="title_tile_wifi">Wi-Fi</string>
     <string name="title_tile_user">Пользователи</string>
+    <string name="title_tile_network_adb">ADB по сети</string>
     <string name="title_tile_volume">Громкость</string>
     <string name="title_tile_networkmode">Режим сети</string>
     <string name="title_tile_reboot">Перезагрузка</string>
@@ -594,9 +595,9 @@
     <string name="shortcut_action_help_shortcut">ярлык</string>
     <string name="shortcut_action_help_button">кнопка</string>
     <string name="shortcut_action_help_app">приложение</string>
-    <string name="shortcut_action_help_icon">, в процессе выбора значка покажет настройки модификации</string>
-    <string name="shortcut_action_help_main">Чтобы добавить %1$s, нажмите значок \&quot;Добавить\&quot;.  Когда %1$s добавлено, выбором ряда, можно изменить цель%2$s\n\nЧтобы удалить %1$s, сдвиньте ряд горизонтально.  Переопределить %1$s в списке можно вертикальным перетаскиванием привязки слева.\n\nЧтобы сбросить все к значениям по умолчанию, нажмите значок сброса.</string>
-    <string name="shortcut_action_help_delete_last_entry">Удаление последнего %1$s в списке отключит эту возможность.</string>
+    <string name="shortcut_action_help_icon">; в процессе выбора значка будут показаны настройки модификации.</string>
+    <string name="shortcut_action_help_main">Чтобы добавить %1$s, нажмите значок \&quot;Добавить\&quot;.  Когда %1$s добавлен(а)(о), выбором ряда можно изменить цель%2$s\n\nЧтобы удалить %1$s, сдвиньте ряд по горизонтали. Переопределить %1$s в списке можно вертикальным перетаскиванием привязки слева.\n\nЧтобы сбросить все к значениям по умолчанию, нажмите значок сброса.</string>
+    <string name="shortcut_action_help_delete_last_entry">Удаление последнего(-ей) %1$s в списке отключит эту возможность.</string>
     <string name="icon_picker_type">Выбрать тип значка:</string>
     <string name="icon_default">По умолчанию</string>
     <string name="icon_presets">Системные значки</string>
@@ -1058,8 +1059,10 @@
     <string name="recent_panel_expanded_mode_never">Никогда</string>
     <string name="recent_panel_show_topmost_title">Показывать последнее приложение</string>
     <string name="recent_panel_show_topmost_summary">Показывать последнее приложение в списке недавних</string>
-    <string name="recent_panel_bg_color_title">Цвет фона</string>
     <string name="trds_default_color">TRDS по умолчанию</string>
+    <string name="recent_panel_bg_color_title">Цвет фона панели</string>
+    <string name="recent_card_bg_color_title">Цвет фона карточки</string>
+    <string name="recent_card_text_color_title">Цвет текста карточки</string>
 
     <!-- ATTENTION: RTL languages need to replace left with right -->
     <string name="recent_panel_lefty_mode_title">Показывать у левого края</string>
@@ -1115,6 +1118,8 @@
     <string name="heads_up_time_out_10sec">10 секунд</string>
     <string name="heads_up_time_out_never">Никогда</string>
     <string name="heads_up_switch_label">Включить уведомления \"поверх\"</string>
+    <string name="heads_up_bg_color_title">Цвет фона</string>
+    <string name="heads_up_text_color_title">Цвет текста</string>
 
     <string name="reset_default_message">Reset default</string>
 

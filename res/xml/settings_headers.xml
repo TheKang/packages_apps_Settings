@@ -68,7 +68,7 @@
         android:fragment="com.android.settings.WirelessSettings"
         android:icon="@drawable/empty_icon" />
 
-    <!-- Additional SlimKat controls -->
+    <!-- Personalization -->
     <header android:title="@string/header_category_rom_settings" />
 
     <!-- Interface -->
@@ -174,13 +174,6 @@
         android:title="@string/user_settings_title"
         android:id="@+id/user_settings" />
 
-    <!-- Manage NFC payment apps -->
-    <header
-        android:fragment="com.android.settings.nfc.PaymentSettings"
-        android:icon="@drawable/ic_settings_nfc_payment"
-        android:title="@string/nfc_payment_settings_title"
-        android:id="@+id/nfc_payment_settings" />
-
     <!-- Manufacturer hook -->
     <header
         android:fragment="com.android.settings.WirelessSettings"
@@ -188,9 +181,27 @@
         <intent android:action="com.android.settings.MANUFACTURER_APPLICATION_SETTING" />
     </header>
 
+    <!-- DeviceParts Device Specific settings -->
+    <header
+        android:id="@+id/advanced_settings"
+        android:title="@string/header_category_rom_settings"
+        android:icon="@drawable/ic_settings_advanced">
+        <intent
+            android:action="com.cyanogenmod.action.LAUNCH_DEVICE_SETTINGS"
+            android:targetPackage="com.cyanogenmod.settings.device"
+            android:targetClass="com.cyanogenmod.settings.device.DeviceSettings" />
+    </header>
+
     <!-- PERSONAL -->
     <header android:id="@+id/personal_section"
         android:title="@string/header_category_personal" />
+
+    <!--  ACCOUNTS section -->
+    <header
+        android:id="@+id/account_settings"
+        android:title="@string/account_settings"
+        android:icon="@drawable/ic_settings_accounts"
+        android:fragment="com.android.settings.accounts.AccountsSettings" />
 
     <!-- Location -->
     <header
@@ -206,13 +217,6 @@
         android:title="@string/security_settings_title"
         android:id="@+id/security_settings" />
 
-    <!-- Language -->
-    <header
-        android:id="@+id/language_settings"
-        android:fragment="com.android.settings.inputmethod.InputMethodAndLanguageSettings"
-        android:icon="@drawable/ic_settings_language"
-        android:title="@string/language_settings" />
-
     <!-- Backup and reset -->
     <header
         android:fragment="com.android.settings.PrivacySettings"
@@ -220,18 +224,12 @@
         android:title="@string/privacy_settings"
         android:id="@+id/privacy_settings" />
 
-    <!--  ACCOUNTS section -->
+    <!-- Manage NFC payment apps -->
     <header
-            android:id="@+id/account_settings"
-            android:title="@string/account_settings" />
-
-    <header
-            android:id="@+id/account_add"
-            android:title="@string/add_account_label"
-            android:icon="@drawable/ic_menu_add_dark">
-        <intent
-            android:action="android.settings.ADD_ACCOUNT_SETTINGS"/>
-    </header>
+        android:fragment="com.android.settings.nfc.PaymentSettings"
+        android:icon="@drawable/ic_settings_nfc_payment"
+        android:title="@string/nfc_payment_settings_title"
+        android:id="@+id/nfc_payment_settings" />
 
     <!-- SYSTEM -->
     <header android:id="@+id/system_section"
@@ -243,6 +241,13 @@
         android:fragment="com.android.settings.DateTimeSettings"
         android:icon="@drawable/ic_settings_date_time"
         android:title="@string/date_and_time_settings_title" />
+
+    <!-- Language & Input -->
+    <header
+        android:id="@+id/language_settings"
+        android:fragment="com.android.settings.inputmethod.InputMethodAndLanguageSettings"
+        android:icon="@drawable/ic_settings_language"
+        android:title="@string/language_settings" />
 
     <!-- Accessibility feedback -->
     <header

@@ -247,7 +247,7 @@
     <!-- Keyboard and Input ASS methods  -->
     <string name="title_keyboard_input">Opzioni avanzate</string>
     <string name="disable_fullscreen_keyboard_title">Disattiva tastiera a schermo intero</string>
-    <string name="disable_fullscreen_keyboard_summary">La tastiera in modalità landescape non riempirà lo schermo</string>
+    <string name="disable_fullscreen_keyboard_summary">La tastiera in modalità landscape non riempirà lo schermo</string>
     <string name="volume_key_cursor_control_title">Controllo cursore tramite tasti volume</string>
     <string name="volume_key_cursor_control_on">Volume su/giu sposta il cursore a sinistra/destra</string>
     <string name="volume_key_cursor_control_on_reverse">Volume su/giu sposta il cursore a destra/sinistra</string>
@@ -900,6 +900,7 @@ aggiungere ulteriori punti di controllo. \'Rimuovi\' elimina la riga selezionata
     <string name="title_tile_wifi">Wi-Fi</string>
     <string name="title_tile_user">Cambio utente</string>
     <string name="title_tile_networkmode">Modalità rete</string>
+    <string name="title_tile_network_adb">ADB su rete</string>
     <string name="title_tile_nfc">NFC</string>
     <string name="title_tile_screen_timeout">Timeout schermo</string>
     <string name="title_tile_quick_record">Registrazione rapida</string>
@@ -943,7 +944,7 @@ aggiungere ulteriori punti di controllo. \'Rimuovi\' elimina la riga selezionata
     <string name="quick_tiles_bg_pressed_color_title">Colore sfondo tiles premute</string>
     <string name="quick_tiles_text_color_title">Colore testo tiles</string>
     <string name="quick_tiles_alpha_title">Trasparenza sfondo tiles</string>
-    <string name="qs_style_reset_message">Resettare tutti i colori a default?</string>
+    <string name="qs_style_reset_message">Resettare a default?</string>
 
     <string name="pref_network_mode_title">Modalità rete</string>
     <string name="pref_screentimeout_mode_title">Modalità timeout schermo</string>
@@ -1013,7 +1014,7 @@ aggiungere ulteriori punti di controllo. \'Rimuovi\' elimina la riga selezionata
     <string name="stylus_icon_enabled_summary">Usa icona puntamento quando lo stilo è in uso</string>
 
     <!-- Themes -->
-    <string name="theme_settings_title">Modalità scura TRDS</string>
+    <string name="theme_settings_title">Modalità TRDS</string>
     <string name="theme_auto_mode_title">Cambia modalità</string>
     <string name="theme_auto_mode_off">Manuale</string>
     <string name="theme_auto_mode_lightsensor">In base ai cambiamenti di luce</string>
@@ -1227,8 +1228,10 @@ aggiungere ulteriori punti di controllo. \'Rimuovi\' elimina la riga selezionata
     <string name="recent_panel_expanded_mode_never">Mai</string>
     <string name="recent_panel_show_topmost_title">Mostra task principale</string>
     <string name="recent_panel_show_topmost_summary">Non esclude il task principale nel pannello delle apps recenti</string>
-    <string name="recent_panel_bg_color_title">Colore sfondo</string>
     <string name="trds_default_color">TRDS predefinito</string>
+    <string name="recent_panel_bg_color_title">Colore sfondo pannello</string>
+    <string name="recent_card_bg_color_title">Colore sfondo schede</string>
+    <string name="recent_card_text_color_title">Colore testo schede</string>
 
     <!-- ATTENTION: RTL languages need to replace left with right -->
     <string name="recent_panel_lefty_mode_title">Mostra a sinistra</string>
@@ -1268,6 +1271,8 @@ aggiungere ulteriori punti di controllo. \'Rimuovi\' elimina la riga selezionata
     <string name="heads_up_time_out_10sec">10 secondi</string>
     <string name="heads_up_time_out_never">Mai</string>
     <string name="heads_up_switch_label">Attiva le notifiche heads up</string>
+    <string name="heads_up_bg_color_title">Colore sfondo</string>
+    <string name="heads_up_text_color_title">Colore testo</string>
 
     <string name="reset_default_message">Resetta a default</string>
 

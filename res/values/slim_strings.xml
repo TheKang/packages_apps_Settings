@@ -36,7 +36,7 @@
     <string name="saturday">Saturday</string>
 
     <!-- Settings main menu category heading. Rom (Launcher, Themes, System). [CHAR LIMIT=40] -->
-    <string name="header_category_rom_settings">Advanced settings</string>
+    <string name="header_category_rom_settings">Personalization</string>
 
     <!-- Slim settings screens -->
     <string name="interface_settings_title">Interface</string>
@@ -185,9 +185,9 @@
     <string name="shake_events_normal_title">Active shake events</string>
     <string name="shake_events_disabled_title">Disabled apps</string>
     <string name="shake_events_disabled_summary">Shake will be disabled while in these apps</string>
-    <string name="shake_event_x_title">Activity to launch when shaken horizontally</string>
-    <string name="shake_event_y_title">Activity to launch when shaken vertically</string>
-    <string name="shake_event_z_title">Activity to launch when shaken back-and-forth</string>
+    <string name="shake_event_x_title">Horizontal shake</string>
+    <string name="shake_event_y_title">Vertical shake</string>
+    <string name="shake_event_z_title">Back-and-forth shake</string>
 
     <!-- Shake sensitivity -->
     <string name="shake_sensitivity_title">Shake sensitivity</string>
@@ -515,7 +515,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="shortcuts_color_mode_summary">Change the shorcuts icon color mode</string>
 
     <!-- Notification drawer settings  -->
-    <string name="notification_drawer_qs_title">Notification &amp; QS drawer</string>
+    <string name="qs_title">Quick settings</string>
     <string name="notification_drawer_title">Notification drawer</string>
     <string name="notification_shortcuts_settings_title">Shortcuts</string>
     <string name="notification_shortcuts_settings_summary">Show shortcuts in the notification drawer</string>
@@ -904,6 +904,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="title_tile_wifiap">Wi-Fi AP</string>
     <string name="title_tile_wifi">Wi-Fi</string>
     <string name="title_tile_user">User switcher</string>
+    <string name="title_tile_network_adb">ADB over network</string>
     <string name="title_tile_networkmode">Network mode</string>
     <string name="title_tile_nfc">NFC</string>
     <string name="title_tile_screen_timeout">Screen timeout</string>
@@ -1127,6 +1128,8 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="advanced_reboot_hide_on_keyguard">Hide on lock screen</string>
     <string name="advanced_reboot_show_always">Show always</string>
 
+    <string name="lockscreen_settings_title">Lockscreen</string>
+
     <!-- Keyguard allow rotation -->
     <string name="lockscreen_rotation_title">Lockscreen rotation</string>
     <string name="lockscreen_rotation_portrait">Portrait only</string>
@@ -1234,8 +1237,12 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="recent_panel_expanded_mode_auto">Auto (default)</string>
     <string name="recent_panel_expanded_mode_always">Always</string>
     <string name="recent_panel_expanded_mode_never">Never</string>
-    <string name="recent_panel_bg_color_title">Background color</string>
+    <string name="recent_panel_show_topmost_title">Show topmost task</string>
+    <string name="recent_panel_show_topmost_summary">Don\'t exclude the topmost task in recents view</string>
     <string name="trds_default_color">TRDS default</string>
+    <string name="recent_panel_bg_color_title">Panel background color</string>
+    <string name="recent_card_bg_color_title">Card background color</string>
+    <string name="recent_card_text_color_title">Card text color</string>
 
     <!-- ATTENTION: RTL languages need to replace left with right -->
     <string name="recent_panel_lefty_mode_title">Show on the left edge</string>
@@ -1341,7 +1348,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="app_moving_reboot_later_button">Reboot later</string>
 
     <!-- Heads up -->
-    <string name="heads_up_title">Heads up notification</string>
+    <string name="heads_up_title">Heads up</string>
     <string name="heads_up_expanded_title">Always expanded</string>
     <string name="heads_up_expanded_summary">Show heads up notification always expanded</string>
     <string name="heads_up_show_updates_title">Show updates</string>
@@ -1365,10 +1372,16 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="heads_up_time_out_10sec">10 seconds</string>
     <string name="heads_up_time_out_never">Never</string>
     <string name="heads_up_switch_label">Enable heads up notification</string>
+    <string name="heads_up_bg_color_title">Background color</string>
+    <string name="heads_up_text_color_title">Text color</string>
 
     <string name="reset_default_message">Reset default</string>
 
     <!-- Device specific settings -->
     <string name="screen_off_gesture_settings_title">Screen off gestures</string>
+
+    <!-- Proximity wake -->
+    <string name="proximity_wake_title">Prevent accidental wake-up</string>
+    <string name="proximity_wake_summary">Check the proximity sensor prior to waking up screen</string>
 
 </resources>
