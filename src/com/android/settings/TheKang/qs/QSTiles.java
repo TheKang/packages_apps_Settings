@@ -37,11 +37,11 @@ import java.util.List;
 public class QSTiles extends Fragment {
 
     private static final String[] AVAILABLE_TILES = {
-        "wifi" ,"bt", "cell", "airplane", "rotation", "flashlight", "location", "cast"
+        "wifi" ,"bt", "inversion", "cell", "airplane", "rotation", "flashlight", "location", "cast", "hotspot", "notifications", "data"
     };
 
     private static final String QS_DEFAULT_ORDER =
-            "wifi,bt,inversion,cell,airplane,rotation,flashlight,location,cast,hotspot";
+            "wifi,bt,inversion,cell,airplane,rotation,flashlight,location,cast,hotspot,notifications,data";
 
     DraggableGridView draggableGridView;
 
