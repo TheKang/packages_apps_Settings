@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+?xml version="1.0" encoding="utf-8"?>
 <!--
      Copyright (C) 2014-2015 TheKang
 
@@ -50,5 +50,9 @@
     <string name="status_bar_network_stats_update_title">Update frequency</string>
     <string name="hide_network_speed">Hide when there is no traffic</string>
     <string name="hide_network_speed_summary">Hide network speed indicator when there is no traffic</string>
+
+    <!-- QuickSettings brightness slider -->
+    <string name="qs_brightness_slider_title">Show brightness slider</string>
+    <string name="qs_brightness_slider_summary">Show a brightness slider in the quick settings panel</string>
 
 </resources>
