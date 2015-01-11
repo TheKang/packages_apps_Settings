@@ -49,9 +49,9 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private SwitchPreference mStatusBarBrightnessControl;
     private PreferenceScreen mClockStyle;
     private SwitchPreference mTicker;
-    private CheckBoxPreference mStatusBarNetStats;
+    private SwitchPreference mStatusBarNetStats;
     private ListPreference mStatusBarNetStatsUpdate;
-    private CheckBoxPreference mStatusBarNetStatsHide;
+    private SwitchPreference mStatusBarNetStatsHide;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,7 +87,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mClockStyle = (PreferenceScreen) prefSet.findPreference(KEY_STATUS_BAR_CLOCK);
         updateClockStyleDescription();
 
-        mStatusBarNetStats = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NETWORK_STATS);
+        mStatusBarNetStats = (SwitchPreference) prefSet.findPreference(STATUS_BAR_NETWORK_STATS);
         mStatusBarNetStats.setChecked((Settings.System.getInt(getContentResolver(),
                             Settings.System.STATUS_BAR_NETWORK_STATS, 0) == 1));
 
@@ -99,7 +99,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarNetStatsUpdate.setSummary(mStatusBarNetStatsUpdate.getEntry());
         mStatusBarNetStatsUpdate.setOnPreferenceChangeListener(this);
 
-        mStatusBarNetStatsHide = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NETWORK_STATS_HIDE);
+        mStatusBarNetStatsHide = (SwitchPreference) prefSet.findPreference(STATUS_BAR_NETWORK_STATS_HIDE);
         mStatusBarNetStatsHide.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.STATUS_BAR_NETWORK_STATS_HIDE, 1) == 1));
 
