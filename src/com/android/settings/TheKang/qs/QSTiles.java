@@ -41,7 +41,7 @@ public class QSTiles extends Fragment {
     };
 
     private static final String QS_DEFAULT_ORDER =
-            "wifi,bt,inversion,cell,airplane,rotation,flashlight,location,cast,hotspot,notifications,data";
+            "wifi,bt,inversion,cell,airplane,rotation,flashlight,location,cast,hotspot,notifications";
 
     DraggableGridView draggableGridView;
 
