@@ -40,7 +40,7 @@
     <PreferenceScreen
         android:key="navigation_bar_settings"
         android:fragment="com.android.settings.TheKang.NavigationBarSettings"
-        android:title="@string/navigation_bar_title"
+        android:title="@string/navigation_bar_title" />
 <!--    android:icon="@drawable/ic_settings_navigation_bar" /> -->
 
 </PreferenceScreen>
